@@ -10,6 +10,8 @@ class UserManager
 
 public:
 
+    UserManager();
+
     UserManager(const UserManager &) = delete;
     UserManager(UserManager &&) = delete;
     UserManager& operator=(const UserManager &) = delete;
@@ -17,16 +19,14 @@ public:
 
     bool login(const std::string &username,const std::string &password);
 
-    static UserManager &getUserManager();
-
 private:
 
     void initUserTable();
-    UserManager();
 
     std::unordered_map <std::string,std::string> mUserTable;
 
     //File containing registered users
     static const std::string database;
+    static bool initialized;
 
 };
