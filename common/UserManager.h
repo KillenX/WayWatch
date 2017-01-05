@@ -23,7 +23,7 @@ private:
 
     void initUserTable();
 
-    std::unordered_map <std::string,std::string> mUserTable;
+    std::unordered_map <std::string,std::string> userTable;
 
     //File containing registered users
     static const std::string database;

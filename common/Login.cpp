@@ -44,15 +44,16 @@ namespace Login
 
         std::string username,password;
 
-        std::cout << "Username: ";
+        std::cout << "Korisnicko ime: ";
         std::getline(std::cin,username);
 
-        std::cout << "Password: ";
+        std::cout << "Sifra: ";
         setEcho(false);
 
         std::getline(std::cin,password);
 
         setEcho(true);
+        std::cout << "\n";
 
         return std::make_pair(username,password);
 
