@@ -21,6 +21,8 @@ private:
 public:
 	GraphHighway() = delete;
 	GraphHighway(const std::string& FileLocation);
+
+	// returns -1 if shortest distance is INF or 0
 	double calcPrice(const int startNode, const int endNode, const double travelTime, const double penalty) const;
 
 	#ifdef DEBUG_MODE

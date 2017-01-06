@@ -5,7 +5,6 @@
 #include "GraphHighway.h"
 
 // TODO: make code more modular
-
 // TODO: implement illegal input checking
 // Parses .CSV and loads values into adjMatrix
 GraphHighway::GraphHighway(const std::string& FileLocation) 
@@ -92,7 +91,10 @@ void GraphHighway::floyd()
 double GraphHighway::calcPrice(int startNode, int endNode, const double travelTime, const double penalty) const
 {
 	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
-	return currNode.toll + ((currNode.minTravelTime > travelTime) ? penalty : 0);
+	if ((currNode.distanceShortest == INFINITY) || (currNode.distanceShortest == 0.0))
+		return -1.0;
+	else
+		return currNode.toll + ((currNode.minTravelTime > travelTime) ? penalty : 0);
 }
 
 // DEBUG CODE
