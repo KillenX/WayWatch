@@ -6,10 +6,28 @@
 
 class WWExit
 {
+	struct Receipt
+	{
+			Receipt(std::string, int, std::string, int, std::string, double, int);
+		public:
+			std::string vehicleCategory;
+			std::string entryDateTime;
+			std::string exitDateTime;
+		
+			int entryNumber;
+			int exitNumber;
+			int receiptNumber;
+
+			double price;
+			
+			void printReceiptHeader(std::ostream &str);
+			void printReceipt(std::ostream &str);
+	};
+
 	bool programExit;
 public:
 
-	WWExit();
+	WWExit(int nodeNo);
 	
 	WWExit(const WWExit &) = delete;
 	WWExit(WWExit &&) = delete;
@@ -34,5 +52,8 @@ private:
 	using Option = std::pair <std::string, Function>;
 
 	std::vector <Option> options;
+
+	int tollBoothNumber;
+	int tollBoothAmount; //the amount of toll booths on the highway
 };
 
