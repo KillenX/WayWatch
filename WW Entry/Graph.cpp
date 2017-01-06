@@ -76,7 +76,6 @@ void Graph::floyd()
 				if (minTimeMatrix[i][j] > minTimeMatrix[i][k] + minTimeMatrix[k][j])
 				{
 					minTimeMatrix[i][j] = minTimeMatrix[i][k] + minTimeMatrix[k][j];
-					tollMatrix[i][j] = tollMatrix[i][k] + tollMatrix[k][j];
 					pathMatrix[i][j] = pathMatrix[k][j];
 				}
 			}
@@ -130,6 +129,11 @@ void Graph::bootUp()  //does magic,dont touch
 	limits.close();
 	distances.close();
 	tolls.close();
+}
+
+int Graph::getNodeCount()
+{
+	return nodeNo;
 }
 
 Graph::Graph(int numberOfNodes) :nodeNo(numberOfNodes)

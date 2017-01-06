@@ -16,7 +16,7 @@ class Graph
 	void loadArr(std::istream& str, T**);
 	
 public:
-	void doTaxes(int startNode, int endNode, int &toll);//ne radi trenutno
+	void doTaxes(int startNode, int endNode, int &toll); //ne radi trenutno
 
 	void loadPaths(std::istream& str);
 	void loadToll(std::istream& str);
@@ -31,7 +31,8 @@ public:
 	float getMinTime(int startNode, int endNode);	//vraca najmanje vrijeme neophodno za prolaz izmedju 2 cvora
 	void  floyd();									//racuna najkrace vrijeme za putovanje izmedju 2 cvora u minutama i putarinu
 	void  calcMinTime();							//racuna najkraca vremena prolaska na dionicama
-	void bootUp();
+	void  bootUp();
+	int getNodeCount();
 
 
 	Graph(int numberOfNodes);
