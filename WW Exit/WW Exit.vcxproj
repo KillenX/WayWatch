@@ -113,11 +113,20 @@
   <ItemGroup>
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h" />
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="WWExit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Database.txt" />
+    <Text Include="data\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\AdjMatrix.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

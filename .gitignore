@@ -1,0 +1,24 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WW Exit/x64/Debug/WWExit.obj
+/WW Exit/x64/Debug/WW Exit.tlog/WW Exit.lastbuildstate
+/WW Exit/x64/Debug/WW Exit.tlog/link.write.1.tlog
+/WW Exit/x64/Debug/WW Exit.tlog/link.read.1.tlog
+/WW Exit/x64/Debug/WW Exit.tlog/link.command.1.tlog
+/WW Exit/x64/Debug/WW Exit.tlog/CL.write.1.tlog
+/WW Exit/x64/Debug/WW Exit.tlog/CL.read.1.tlog
+/WW Exit/x64/Debug/WW Exit.tlog/CL.command.1.tlog
+/WW Exit/x64/Debug/WW Exit.pdb
+/WW Exit/x64/Debug/WW Exit.log
+/WW Exit/x64/Debug/WW Exit.ilk
+/WW Exit/x64/Debug/WW Exit.exe
+/WW Exit/x64/Debug/vc140.pdb
+/WW Exit/x64/Debug/vc140.idb
+/WW Exit/x64/Debug/UserManager.obj
+/WW Exit/x64/Debug/Main.obj
+/WW Exit/x64/Debug/Login.obj
+/WW Exit/x64/Debug/Graph.obj
+/WW Exit/ClassDiagram.cd
+/WW Exit/.vs/WW Exit/v14/.suo

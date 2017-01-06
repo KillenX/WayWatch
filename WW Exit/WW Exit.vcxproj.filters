@@ -21,6 +21,9 @@
     <ClCompile Include="GraphHighway.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WWExit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -32,5 +35,15 @@
     <ClInclude Include="Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WWExit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Database.txt" />
+    <Text Include="data\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\AdjMatrix.csv" />
   </ItemGroup>
 </Project>

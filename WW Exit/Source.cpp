@@ -11,8 +11,11 @@ int main()
 	GraphHighway graphHighway(FILE_ADJ_MATRIX);
 	graphHighway.draw();
 
-	
 	std::cout << std::endl << graphHighway.calcPrice(1, 2, 1, 50);
+
+	WWExit app(g.getNodeCount());
+
+	app.run();
 	
 	std::cin.ignore();
 	std::cin.get();
