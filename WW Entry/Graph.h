@@ -14,25 +14,26 @@ class Graph
 	void saveArr(std::ostream& str, T**);
 	template<typename T>
 	void loadArr(std::istream& str, T**);
-	
-public:
-	void doTaxes(int startNode, int endNode, int &toll); //ne radi trenutno
+	void doTaxes(int startNode, int endNode, float &toll); //popratna funkcija koja odredi putarinu na VREMENSKI NAJKRACEM putu
 
-	void loadPaths(std::istream& str);
+public:
+	
+	float getToll(int startNode, int endNode);		//vraca putarinu izmedju 2 cvora
+	void loadPaths(std::istream& str);				//ucitavanja iz fajlova odgovarajucih matrica
 	void loadToll(std::istream& str);
 	void loadLimits(std::istream& str);
 	void loadDistances(std::istream& str);
 	void loadMinTime(std::istream& str);
 
-	void savePaths(std::ostream& str);
-	void saveToll(std::ostream& str);
-	void saveMinTime(std::ostream& str);
+	void savePaths(std::ostream& str);				//cuvanje najkracih puteva(vremenski najkracih) u fajl
+	void saveToll(std::ostream& str);				//u slucaju promjene putarine iz programa
+	void saveMinTime(std::ostream& str);			//cuva izracunata najkraca vremena prolaza izmedju bilo koja 2 cvora u fajl
 
 	float getMinTime(int startNode, int endNode);	//vraca najmanje vrijeme neophodno za prolaz izmedju 2 cvora
 	void  floyd();									//racuna najkrace vrijeme za putovanje izmedju 2 cvora u minutama i putarinu
 	void  calcMinTime();							//racuna najkraca vremena prolaska na dionicama
-	void  bootUp();
-	int getNodeCount();
+	void  bootUp();									//inicijalizacija grafa standardnim parametrima
+	int   getNodeCount();							//vraca broj cvorova u grafu
 
 
 	Graph(int numberOfNodes);

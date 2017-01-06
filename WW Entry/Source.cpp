@@ -7,6 +7,7 @@
 using std::cout;
 using std::ios;
 using std::cin;
+using std::endl;
 
 
 int main()

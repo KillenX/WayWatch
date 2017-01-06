@@ -5,18 +5,29 @@
 
 
 
-void Graph::doTaxes(int startNode, int endNode, int & toll)
+void Graph::doTaxes(int startNode, int endNode, float & toll)
 {
 	if (startNode == endNode)
-		printf("%d", startNode);
+	{
+		//std::cout << startNode;
+		return;
+	}
 	else if (pathMatrix[startNode][endNode] == -1)
-		printf("Nema putanje\n");
+		std::cout << "Nema putanje"<<std::endl;
 	else
 	{
-		printf("%d-", endNode);
+		toll += tollMatrix[pathMatrix[startNode][endNode]][endNode];
+		//std::cout << endNode << "-";  for printing nodes on the path
 		doTaxes(startNode, pathMatrix[startNode][endNode], toll);
 	}
 
+}
+
+float Graph::getToll(int startNode, int endNode)
+{
+	float toll=0;
+	doTaxes(startNode, endNode, toll);
+	return toll;
 }
 
 void Graph::loadPaths(std::istream & str)
@@ -67,11 +78,11 @@ float Graph::getMinTime(int startNode, int endNode)
 
 void Graph::floyd()
 {
-	for (int i = 0; i < nodeNo; i++)
+	for (int k = 0; k < nodeNo; k++)
 	{
-		for (int j = 0; j < nodeNo; j++)
+		for (int i = 0; i < nodeNo; i++)
 		{
-			for (int k = 0; k < nodeNo; k++)
+			for (int j = 0; j < nodeNo; j++)
 			{
 				if (minTimeMatrix[i][j] > minTimeMatrix[i][k] + minTimeMatrix[k][j])
 				{
@@ -83,6 +94,7 @@ void Graph::floyd()
 	}
 }
 
+
 void Graph::calcMinTime()
 {
 	for (int i = 0; i < nodeNo; i++)
@@ -92,9 +104,9 @@ void Graph::calcMinTime()
 			if (distMatrix[i][j] && limitMatrix[i][j])
 				minTimeMatrix[i][j] = i == j ? 0 : (distMatrix[i][j] / limitMatrix[i][j] * 60);
 			else
-				minTimeMatrix[i][j] = i == j ? 0 : INT_MAX / 2;
+				minTimeMatrix[i][j] = i == j ? 0 : INT_MAX ;
 
-			if (minTimeMatrix[i][j] == 0||minTimeMatrix[i][j]==INT_MAX/2)
+			if (minTimeMatrix[i][j] == 0||minTimeMatrix[i][j]==INT_MAX)
 				pathMatrix[i][j] = -1;
 			else
 				pathMatrix[i][j] = i;
