@@ -4,6 +4,43 @@
 
 
 
+void Graph::addBranch()
+{
+	int tmpstart, tmpend,limit;
+	float dist, toll;
+	do 
+	{
+		std::cout << "\nUnesite pocetni cvor dionice: ";
+		std::cin >> tmpstart;
+	}
+	while (tmpstart > nodeNo||tmpstart<0);
+	do
+	{
+		std::cout << "\nUnesite krajnji cvor dionice: ";
+		std::cin >> tmpend;
+	} while (tmpend > nodeNo||tmpend<0);
+	do
+	{
+		std::cout << "\nUnesite duzinu dionice: ";
+		std::cin >> dist ;
+	} while (dist<0);
+	do
+	{
+		std::cout << "\nUnesite putarinu dionice: ";
+		std::cin >> toll;
+	} while (toll<0);
+	do
+	{
+		std::cout << "\nUnesite ogranicenje brzine na dionici: ";
+		std::cin >> limit;
+	} while (limit<0);
+
+	
+	distMatrix[tmpstart][tmpend] = distMatrix[tmpend][tmpstart] = dist;
+	limitMatrix[tmpstart][tmpend] = limitMatrix[tmpend][tmpstart] = limit;
+	tollMatrix[tmpstart][tmpend] = tollMatrix[tmpend][tmpstart] = toll;
+	
+}
 
 void Graph::doTaxes(int startNode, int endNode, float & toll)
 {

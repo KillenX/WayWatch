@@ -35,6 +35,7 @@ public:
 	void  bootUp();									//inicijalizacija grafa standardnim parametrima
 	int   getNodeCount();							//vraca broj cvorova u grafu
 
+	void addBranch();
 
 	Graph(int numberOfNodes);
 	~Graph();
