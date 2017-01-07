@@ -111,14 +111,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\Login.cpp" />
+    <ClCompile Include="..\common\UserManager.cpp" />
     <ClCompile Include="GraphHighway.cpp" />
+    <ClCompile Include="Receipt.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Login.h" />
+    <ClInclude Include="..\common\UserManager.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Receipt.h" />
     <ClInclude Include="WWExit.h" />
   </ItemGroup>
   <ItemGroup>

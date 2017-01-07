@@ -1,6 +1,6 @@
 #include <iostream>
-#include <iomanip>
 #include <fstream>
+#include <iomanip>
 #include <string>
 #include "GraphHighway.h"
 
@@ -49,11 +49,11 @@ GraphHighway::GraphHighway(const std::string& FileLocation)
 			// fill into symmetrical matrix element... [i][j] == [j][i]
 			adjMatrix.at(j).at(i) = currEdge;
 
-			// ignore comma
-			fAdjMatrix.ignore(1);
+			// ignore up to next comma in .csv
+			fAdjMatrix.ignore(INT_MAX, ',');
 		}
 
-		// skip rest of row after all elements in BT matrix are read
+		// skip rest of row after all elements in bottom triangular matrix row are read
 		std::getline(fAdjMatrix, dump);
 	}
 	
@@ -88,18 +88,46 @@ void GraphHighway::floyd()
 			}
 }
 
-double GraphHighway::calcPrice(int startNode, int endNode, const double travelTime, const double penalty) const
+int GraphHighway::getNumNodes()
 {
-	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
-	if ((currNode.distanceShortest == INFINITY) || (currNode.distanceShortest == 0.0))
-		return -1.0;
-	else
-		return currNode.toll + ((currNode.minTravelTime > travelTime) ? penalty : 0);
+	return numNodes;
 }
 
+bool GraphHighway::isConnected(const int startNode, const int endNode) const
+{
+	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
+	if (currNode.doesExist)
+		return true;
+
+	if ((currNode.distanceShortest == INFINITY) || (currNode.distanceShortest == 0.0))
+		return false;
+	
+	return true;
+}
+
+double GraphHighway::getToll(const int startNode, const int endNode) const
+{
+	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
+	if (isConnected(startNode, endNode))
+		return currNode.toll;
+	else
+		return -1.0; // ERROR: Nodes not connected
+}
+
+bool GraphHighway::hasViolatedSpeedLimit(const int startNode, const int endNode, const double travelTime)
+{
+	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
+	if (isConnected(startNode, endNode))
+		return ((currNode.minTravelTime > travelTime) ? true : false);
+	else
+		return false; // ERROR: Nodes not connected
+}
+
+#ifdef DEBUG_MODE
+// **********************************************
 // DEBUG CODE
 // FOR DEBUGGING PURPOSES, REMOVE IN PRODUCTION?
-#ifdef DEBUG_MODE
+// **********************************************
 void GraphHighway::draw() const
 { 
 	const int FILL_WIDTH = 5;
