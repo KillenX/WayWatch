@@ -1,11 +1,13 @@
 #include "WWExit.h"
 #include "UserManager.h"
 #include "Receipt.h"
+#include "TimeUtils.h"
 #include <iostream>
 #include <fstream>
-#include <chrono>
 #include <iomanip>
 #include <sstream>
+
+const char* TIME_FORMAT = "%d-%m-%y %H:%M:%S";
 
 WWExit::WWExit() : programExit(false), graphHighway(FILE_ADJ_MATRIX)
 {
@@ -58,59 +60,38 @@ void WWExit::initOptions()
 // MAKE CONVERSION ALGORITHMS BETTER!
 void WWExit::tollPayment()
 {
-	// set current time (time of exit)
-	// TODO: make better algorithm plz
+	// get exit time
 	std::time_t exitTime = std::time(NULL);
-	std::string exitDateTime;
-	// exitTime into formatted string exitDateTime
-	{
-		struct tm ptr;
-		char buff[32];
-		localtime_s(&ptr, &exitTime);
-		strftime(buff, 32, "%d-%m-%y %H:%M:%S", &ptr);
-		exitDateTime = buff;
-	}
-
+	std::string exitDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT);
+	
 	// get entry time
-	// TODO: input check
-	std::time_t entryTime;
-	std::string entryDateTime;
-	{
-		std::tm tm;
-		memset(&tm, 0, sizeof(std::tm));
-		std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
-		std::cin >> std::get_time(&tm, "%d-%m-%y %H:%M:%S");
-		entryTime = mktime(&tm);
-	}
-
-	// entryTime into formatted string entryDateTime
-	{
-		struct tm ptr;
-		char buff[32];
-		localtime_s(&ptr, &entryTime);
-		strftime(buff, 32, "%d-%m-%y %H:%M:%S", &ptr);
-		entryDateTime = buff;
-	}
+	std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
+	std::time_t entryTime = TimeUtils::StringStream2Time(std::cin, TIME_FORMAT);
+	std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT);
 
 	// get entry node
 	// TODO: input, range check;
-	int entryNode;
 	std::cout << "Unesite broj ulaznog cvora: ";
+	int entryNode;
 	std::cin >> entryNode;
 
 	// get vehicle category
 	// TODO: input check
-	std::string vehicleCategory;
 	std::cout << "Unesite kategoriju vozila: ";
+	std::string vehicleCategory;
 	std::cin >> vehicleCategory;
 
+	// calculate toll and do speed control
 	double toll = graphHighway.getToll(entryNode, tollBoothNumber);
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, (exitTime - entryTime) / 60.0);
 
 	// TODO: algorithm for receiptNumber
 	int receiptNumber = 0;
 
-	Receipt receipt(entryDateTime, entryNode, exitDateTime, tollBoothNumber, vehicleCategory, toll, hasViolated, receiptNumber);
+	Receipt receipt(entryDateTime, entryNode, 
+		exitDateTime, tollBoothNumber, 
+		vehicleCategory, toll, hasViolated, 
+		receiptNumber);
 
 	receipt.printReceiptHeader(std::cout);
 	receipt.printReceipt(std::cout);
@@ -122,7 +103,7 @@ void WWExit::tollPayment()
 
 	std::cin >> choice;
 
-	//TODO: safety check so it doesn't crash
+	// TODO: safety check so it doesn't crash
 	if (choice == 1)
 	{
 		std::ofstream file("Receipts.txt", std::fstream::app);
@@ -132,8 +113,10 @@ void WWExit::tollPayment()
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;
 	}
-	else if (choice == 2)
-		std::cout << "Racun uspjesno obrisan. " << std::endl;
+
+	else
+		if (choice == 2)
+			std::cout << "Racun uspjesno obrisan. " << std::endl;
 }
 
 void WWExit::exit()

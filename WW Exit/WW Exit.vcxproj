@@ -116,6 +116,7 @@
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Receipt.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Receipt.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WWExit.h" />
   </ItemGroup>
   <ItemGroup>
