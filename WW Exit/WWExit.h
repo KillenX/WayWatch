@@ -14,8 +14,8 @@ private:
 	using Option = std::pair <std::string, Function>;
 
 	bool programExit;
-	int tollBoothNumber;
-	int tollBoothAmount; // the amount of toll booths on the highway, same as amount of nodes on highway graph
+	int tollBoothNumber; // id. number of node the employee is located at
+	int tollBoothAmount; // amount of nodes on highway graph
 	std::vector <Option> options;
 	GraphHighway graphHighway;
 
@@ -23,8 +23,6 @@ private:
 
 	void printOptions();
 	void initOptions();
-	void generateReceipt();
-	void readEntryCard();
 	void tollPayment();
 	void exit();
 public:

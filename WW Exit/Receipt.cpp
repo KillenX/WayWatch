@@ -3,16 +3,18 @@
 
 Receipt::Receipt(std::string entryDate, int entryNode, 
 	std::string exitDate, int exitNode, 
-	std::string vCategory, double price, 
-	bool hasViolated, int rNumber)
+	std::string vCategory, double price, bool hasViolated,
+	int receiptNumber)
 	: entryDateTime(entryDate)
-	, entryNumber(entryNode)
+	, entryNode(entryNode)
 	, exitDateTime(exitDate)
-	, exitNumber(exitNode)
+	, exitNode(exitNode)
 	, vehicleCategory(vCategory)
 	, price(price)
-	, receiptNumber(rNumber) {}
+	, hasViolated(hasViolated)
+	, receiptNumber(receiptNumber) {}
 
+// TODO: Make it such that header text gets printed only once to the file
 void Receipt::printReceiptHeader(std::ostream &str)
 {
 	str << "=========================== ========================= ================== ======= ================" << std::endl
@@ -23,9 +25,9 @@ void Receipt::printReceiptHeader(std::ostream &str)
 void Receipt::printReceipt(std::ostream &str)
 {
 	str << " " << entryDateTime << " / " << std::setw(6) << std::left
-		<< entryNumber << " "
+		<< entryNode << " "
 		<< exitDateTime << " / " << std::setw(9) << std::left
-		<< exitNumber << "         " << std::setw(10) << std::left
+		<< exitNode << "         " << std::setw(10) << std::left
 		<< vehicleCategory << "  " << std::setw(4) << std::left
 		<< price << "      "
 		<< receiptNumber << std::endl

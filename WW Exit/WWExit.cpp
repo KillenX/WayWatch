@@ -18,12 +18,10 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
-	// employee has to enter the number of the toll booth (tollBoothNumber) he's working in after he logs in.
 	do 
 	{
 		std::cout << "Unesite broj naplatne kucice: " << std::endl;
 		std::cin >> tollBoothNumber;
-		// TODO: Safety check so it doesn't crash
 	} while (tollBoothNumber < 1 || tollBoothNumber > tollBoothAmount);
 
 	while (!programExit)
@@ -32,7 +30,7 @@ void WWExit::run()
 
 		int selection;
 		std::cin >> selection;
-		selection--; // the options in menu are listed from 1 to n, options in array from 0 to n.
+		selection--; // menu options are [1...n], array is [0...n-1]
 
 		if (validateSelection(std::cin, selection))
 			options[selection].second();
@@ -56,8 +54,7 @@ void WWExit::initOptions()
 	};
 }
 
-// TODO: M O D U L A R I Z E ! ! ! !
-// MAKE CONVERSION ALGORITHMS BETTER!
+// TODO: move input queries to seperate function
 void WWExit::tollPayment()
 {
 	// get exit time
@@ -83,7 +80,8 @@ void WWExit::tollPayment()
 
 	// calculate toll and do speed control
 	double toll = graphHighway.getToll(entryNode, tollBoothNumber);
-	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, (exitTime - entryTime) / 60.0);
+	double travelTime = (exitTime - entryTime) / 60; // divide seconds by 60 to get in minutes
+	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, travelTime);
 
 	// TODO: algorithm for receiptNumber
 	int receiptNumber = 0;
@@ -98,25 +96,24 @@ void WWExit::tollPayment()
 
 	int choice;
 	std::cout << "Racun je uspjesno generisan. " << std::endl
-		<< "1 - Izdaj racun." << std::endl
-		<< "2 - Obrisi" << std::endl;
+			  << "1 - Izdaj racun" << std::endl
+			  << "2 - Obrisi" << std::endl;
 
 	std::cin >> choice;
 
-	// TODO: safety check so it doesn't crash
+	// TODO: make option selection a loop until right choice is made
 	if (choice == 1)
 	{
 		std::ofstream file("Receipts.txt", std::fstream::app);
-		// TODO: Make it such that header text gets printed only once to the file
 		receipt.printReceiptHeader(file);
 		receipt.printReceipt(file);
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;
 	}
 
-	else
-		if (choice == 2)
-			std::cout << "Racun uspjesno obrisan. " << std::endl;
+	if (choice == 2)
+		std::cout << "Racun uspjesno obrisan. " << std::endl;
+
 }
 
 void WWExit::exit()
