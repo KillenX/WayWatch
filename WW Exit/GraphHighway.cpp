@@ -107,20 +107,12 @@ bool GraphHighway::isConnected(const int startNode, const int endNode) const
 
 double GraphHighway::getToll(const int startNode, const int endNode) const
 {
-	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
-	if (isConnected(startNode, endNode))
-		return currNode.toll;
-	else
-		return -1.0; // ERROR: Nodes not connected
+	return adjMatrix.at(startNode - 1).at(endNode - 1).toll;
 }
 
 bool GraphHighway::hasViolatedSpeedLimit(const int startNode, const int endNode, const double travelTime)
 {
-	const Edge &currNode = adjMatrix.at(startNode - 1).at(endNode - 1);
-	if (isConnected(startNode, endNode))
-		return ((currNode.minTravelTime > travelTime) ? true : false);
-	else
-		return false; // ERROR: Nodes not connected
+	return ((adjMatrix.at(startNode - 1).at(endNode - 1).minTravelTime > travelTime) ? true : false);
 }
 
 #ifdef DEBUG_MODE
