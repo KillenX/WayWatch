@@ -14,7 +14,6 @@ Receipt::Receipt(std::string entryDate, int entryNode,
 	, hasViolated(hasViolated)
 	, receiptNumber(receiptNumber) {}
 
-// TODO: Make it such that header text gets printed only once to the file
 void Receipt::printReceiptHeader(std::ostream &str)
 {
 	str << "=========================== ========================= ================== ======= ================" << std::endl

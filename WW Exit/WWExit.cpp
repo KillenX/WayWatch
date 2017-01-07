@@ -62,9 +62,8 @@ void WWExit::tollPayment()
 	std::string exitDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT);
 	
 	// get entry time
-	std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
-	std::time_t entryTime = TimeUtils::StringStream2Time(std::cin, TIME_FORMAT);
-	std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT);
+	std::time_t entryTime = std::time(NULL); //TODO: replace with entry time from EntryCard
+	std::string entryDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT); //TODO: replace with entry date from EntryCard
 
 	// get entry node
 	// TODO: input, range check;
@@ -84,7 +83,7 @@ void WWExit::tollPayment()
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, travelTime);
 
 	// TODO: algorithm for receiptNumber
-	int receiptNumber = 0;
+	int receiptNumber = 1;
 
 	Receipt receipt(entryDateTime, entryNode, 
 		exitDateTime, tollBoothNumber, 
@@ -104,7 +103,8 @@ void WWExit::tollPayment()
 	// TODO: make option selection a loop until right choice is made
 	if (choice == 1)
 	{
-		std::ofstream file("Receipts.txt", std::fstream::app);
+		std::string fileName = std::string("Receipts/Receipt") + std::to_string(receiptNumber) + std::string(".txt");
+		std::ofstream file(fileName, std::fstream::app);
 		receipt.printReceiptHeader(file);
 		receipt.printReceipt(file);
 		file.close();
