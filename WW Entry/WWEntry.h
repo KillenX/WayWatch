@@ -29,13 +29,14 @@ private:
 
     void printOptions();
     bool validateSelection(std::istream &stream,int selection);
+    //void printHelp(); Implement?
+    std::string inputCategory();
 
 
     using OptCallable = std::function <void()>;
 
     //Pair consisting of option string (eg. "Exit Program"), second is handler for the option
     using Option = std::pair <std::string,OptCallable>;
-
 
 
     std::vector <Option> options;

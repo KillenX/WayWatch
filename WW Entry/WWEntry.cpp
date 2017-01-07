@@ -1,6 +1,8 @@
 #include "WWEntry.h"
-#include "../common/Login.h"
-#include "../common/UserManager.h"
+#include "common/Login.h"
+#include "common/UserManager.h"
+#include "common/Console.h"
+#include <regex>
 #include <iostream>
 #include <cstddef>
 
@@ -32,7 +34,7 @@ void WWEntry::run()
     }
     while(!loggedIn);
 
-    std::cout << "Uspjesno logovanje na sistem\n";
+    Console::clear();
 
     while (!programExit)
     {
@@ -51,8 +53,8 @@ void WWEntry::run()
             std::cin >> selection;
 
             validSelection = validateSelection(std::cin,selection);
-            std::cin.clear();
-            std::cin.ignore();
+            std::cin.clear();   // Recover if text is entered
+            std::cin.ignore();  // Get rid of newline
 
             if(!validSelection)
                 std::cout << "Greska!, opcija ne postoji\n";
@@ -61,8 +63,9 @@ void WWEntry::run()
         }
         while(!validSelection);
 
-
+        Console::clear();
         options[selection - 1].second();
+        Console::clear();
 
     }
 
@@ -84,6 +87,14 @@ void WWEntry::initOptions()
 
 void WWEntry::generateEntryCard()
 {
+
+    std::cout << "Registarske tablice: ";
+    std::string platesId;
+    std::cin >> platesId;
+
+    std::string vehicleCategory = inputCategory();
+
+    // TODO:
 
 }
 
@@ -114,3 +125,24 @@ bool WWEntry::validateSelection(std::istream &stream,int selection)
 
 }
 
+std::string WWEntry::inputCategory()
+{
+
+    bool vehicleCategoryValid;
+
+    do
+    {
+
+        std::cout << "Kategorija vozila: ";
+        std::string vehicleCategory;
+        std::cin >> vehicleCategory;
+
+        vehicleCategoryValid; // TODO: Validate category input;
+
+        if(!vehicleCategoryValid)
+            std::cout << "Greska, kategorija nije validna\n";
+
+    }
+    while(!vehicleCategoryValid);
+
+}
