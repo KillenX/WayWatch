@@ -1,6 +1,7 @@
 #include "WWExit.h"
 #include "UserManager.h"
 #include "Receipt.h"
+#include "Ticket.h"
 #include "TimeUtils.h"
 #include <iostream>
 #include <fstream>
@@ -109,6 +110,19 @@ void WWExit::tollPayment()
 		receipt.printReceipt(file);
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;
+
+		if (hasViolated)
+		{
+			//TODO: replace "licensePlate" with EntryCard.licensePlate and 245 with actual ticket price
+			Ticket t(exitDateTime, "licensePlate", 245); 
+
+			// TODO: replace std::string("LicensePlate") with EntryCard.licensePlate
+			std::string fileName = std::string("Tickets/Ticket") + std::string("LicensePlate.txt");
+
+			std::ofstream file(fileName, std::fstream::app);
+			t.printTicketHeader(file);
+			t.printTicket(file);
+		}
 	}
 
 	if (choice == 2)
