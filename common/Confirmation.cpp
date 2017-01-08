@@ -4,6 +4,8 @@
 #include <fstream>
 #include <ctime>
 #include <iomanip>
+#include "InputConfirmationException.h"
+#include "OutputConfirmationException.h"
 void generateConirmation(unsigned counter, std::string enterence, std::string category, std::string regiterPlates)
 {
 	auto t = std::time(nullptr); //current date&time
@@ -13,7 +15,13 @@ void generateConirmation(unsigned counter, std::string enterence, std::string ca
 	std::ostringstream convert;
 	convert << counter;
 	number = convert.str();
-	//TODO: Check if the confirmation with the same serial number exists
+
+	if (confirmationExists(counter))
+	{
+		InputConfirmationException exception;
+		throw exception;
+	}
+
 	std::ofstream confirmation("confirmation" + number + ".txt", std::ios::out); //new confirmation made
 	
 	std::ostringstream date;
@@ -29,6 +37,7 @@ void generateConirmation(unsigned counter, std::string enterence, std::string ca
 	confirmation << "Category:        " << category << std::endl;
 	confirmation << "Register plates: " << regiterPlates << std::endl;
 	confirmation << "========================================" << std::endl;
+	confirmation.close();
 }
 
 std::tuple<std::string, std::string, std::string, std::string> readConfirmation(unsigned ID)
@@ -38,12 +47,16 @@ std::tuple<std::string, std::string, std::string, std::string> readConfirmation(
 
 	std::ifstream confirmation("confirmation" + convert.str() + ".txt");
 	if (!confirmation.is_open())
-		convert << "bla";//TODO:Throw exception
+	{
+		OutputConfirmationException exception;
+		throw exception;
+	}
 	std::string enterence;
 	std::string registrationPlates;
 	std::string date;
 	std::string time;
 	std::string category;
+
 	//Code that is heavily dependant on the look of the confirmationX.txt file
 	confirmation.ignore(41, '\n');
 	confirmation.ignore(17);
@@ -61,4 +74,15 @@ std::tuple<std::string, std::string, std::string, std::string> readConfirmation(
 	
 	return std::make_tuple < std::string, std::string, std::string, std::string, std::string>
 		(enterence, date, time, category, registrationPlates);
+}
+
+bool confirmationExists(unsigned ID)
+{
+	std::string number;
+	std::ostringstream convert;
+	convert << ID;
+	number = convert.str();
+
+	std::ifstream confirmation("confirmation" + number + ".txt");
+	return confirmation.is_open();
 }
