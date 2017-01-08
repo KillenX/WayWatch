@@ -1,6 +1,12 @@
 #include "Console.h"
 #include <iostream>
 
+#if defined(_WIN32)
+
+#include <windows.h>
+
+#endif
+
 
 namespace Console
 {
@@ -14,9 +20,17 @@ namespace Console
 
         #elif defined(_WIN32)
 
-        //Port to windows
+        auto consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD topLeft = {0,0};
+        CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+        DWORD written;
 
-        #endif // defined
+        auto bufferSize = consoleInfo.dwSize.X * consoleInfo.dwSize.Y;
+
+        FillConsoleOutputCharacter(consoleHandle,' ',bufferSize,topLeft,&written);
+        SetConsoleCursorPosition(consoleHandle,topLeft);
+
+        #endif
     }
 
 }
