@@ -2,7 +2,9 @@
 #include <fstream>
 #include <ios>
 #include "../common/UserManager.h"
-
+#include "../common/Confirmation.h"
+#include "../common/InputConfirmationException.h"
+#include "../common/OutputConfirmationException.h"
 
 using std::cout;
 using std::ios;

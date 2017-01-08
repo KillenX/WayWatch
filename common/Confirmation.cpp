@@ -40,7 +40,7 @@ void generateConirmation(unsigned counter, std::string enterence, std::string ca
 	confirmation.close();
 }
 
-std::tuple<std::string, std::string, std::string, std::string> readConfirmation(unsigned ID)
+std::tuple<std::string, std::string, std::string, std::string, std::string> readConfirmation(unsigned ID)
 {
 	std::stringstream convert;
 	convert << ID;
@@ -72,8 +72,7 @@ std::tuple<std::string, std::string, std::string, std::string> readConfirmation(
 
 	confirmation.close();
 	
-	return std::make_tuple < std::string, std::string, std::string, std::string, std::string>
-		(enterence, date, time, category, registrationPlates);
+	return std::make_tuple (enterence, date, time, category, registrationPlates);
 }
 
 bool confirmationExists(unsigned ID)
