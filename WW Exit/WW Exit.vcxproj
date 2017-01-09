@@ -111,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\Confirmation.cpp" />
     <ClCompile Include="..\common\Console.cpp" />
     <ClCompile Include="..\common\Login.cpp" />
     <ClCompile Include="..\common\UserManager.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Confirmation.h" />
     <ClInclude Include="..\common\Console.h" />
     <ClInclude Include="..\common\Login.h" />
     <ClInclude Include="..\common\UserManager.h" />

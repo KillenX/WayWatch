@@ -2,7 +2,5 @@
 
 namespace Console
 {
-
     void clear();
-
 }

@@ -7,7 +7,6 @@
 constexpr char *FILE_ADJ_MATRIX = "./data/AdjMatrix.csv";
 constexpr char *FILE_EDGE_DATA = "./data/EdgeData.csv";
 
-// TODO: REWRITE GRAPH TO SUPPORT REQUIREMENTS!!!
 class GraphHighway
 {
 public:
@@ -31,15 +30,14 @@ private:
 		double distanceDirect = 0.0; // direct travel distance between 2 connected nodes [km]
 		double distanceShortest = 0.0;	// used in Floyd, minimum possible travel distance between 2 nodes [km]
 		double minTravelTime = 0.0;	// used in Floyd, minimum possible minimumTravelTime sum between 2 nodes [min]
-		std::map<std::string, double> tolls; // // toll sum between 2 nodes (based on shortest distance path) [currency]
+		std::map<std::string, double> tolls; // // toll sums between 2 nodes (based on shortest distance path) [currency]
 	};
 
 	int numNodes;	
 	Matrix<Edge> adjMatrix; // symmetrical matrix
 	std::vector<std::string> vehicleCategories;
-	// Floyd algorithm, sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
 	void loadAdjMatrix();
 	void loadEdgeData();
-	void floyd(); 
+	void floyd(); // Floyd algorithm, sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
 };
 

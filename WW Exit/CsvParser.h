@@ -38,6 +38,5 @@ CsvParser & operator>>(CsvParser &csvParser, T &dest)
 template <>
 CsvParser & operator>><std::string>(CsvParser &csvParser, std::string &dest);
 
-/*
 template <typename T>
-CsvParser & operator>>(CsvParser &csvParser, T* &dest) = delete;*/
+CsvParser & operator>>(CsvParser &csvParser, T* &dest) = delete;

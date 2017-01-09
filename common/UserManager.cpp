@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <sstream>
 
-const std::string UserManager::database = "database.txt";
+const std::string UserManager::database = "../data/database.txt";
 bool UserManager::initialized = false;
 
 

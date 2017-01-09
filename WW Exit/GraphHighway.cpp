@@ -7,6 +7,7 @@
 // TODO: make code more modular
 // TODO: implement illegal input checking
 // TODO: rewrite comments
+// TODO: if EdgeData doesn't contain all edges make it ERROR, bad results otherwise
 
 GraphHighway::GraphHighway() 
 {
@@ -240,8 +241,8 @@ void GraphHighway::draw() const
 			
 			// write out element
 			const Edge &currNode = adjMatrix.at(i).at(j);
-			if (currNode.distanceDirect != 0.0)
-				std::cout << currNode.distanceDirect;
+			if (currNode.minTravelTime != 0.0)
+				std::cout << currNode.tolls.at("A");
 			else std::cout << ' ';
 			std::cout << '|';
 

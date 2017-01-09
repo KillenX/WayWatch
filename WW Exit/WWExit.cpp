@@ -1,5 +1,6 @@
 #include "WWExit.h"
 #include "UserManager.h"
+#include "Confirmation.h"
 #include "Receipt.h"
 #include "Ticket.h"
 #include "TimeUtils.h"
@@ -60,6 +61,20 @@ void WWExit::initOptions()
 // TODO: move input queries to seperate function
 void WWExit::tollPayment()
 {
+	std::string entryCardId;
+	std::cout << "Entry card number: ";
+	std::cin >> entryCardId;
+
+	std::tuple<std::string, std::string, std::string, std::string, std::string> entryCard;
+
+	entryCard = Confirmation::readConfirmation(entryCardId);
+
+	std::string stringEntryNode = std::get<0>(entryCard);
+	std::string stringDate = std::get<1>(entryCard);
+	std::string stringTime = std::get<2>(entryCard);
+	std::string stringCategory = std::get<3>(entryCard);
+	std::string stringPlates = std::get<4>(entryCard);
+
 	// get exit time
 	std::time_t exitTime = std::time(NULL);
 	std::string exitDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT);
