@@ -33,7 +33,7 @@
     <ClCompile Include="..\common\EntryCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimeUtils.cpp">
+    <ClCompile Include="..\common\TimeUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="..\common\EntryCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TimeUtils.h">
+    <ClInclude Include="..\common\TimeUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

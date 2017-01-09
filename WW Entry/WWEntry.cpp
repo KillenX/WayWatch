@@ -2,8 +2,8 @@
 #include "../common/Login.h"
 #include "../common/UserManager.h"
 #include "../common/Console.h"
-#include "EntryCard.h"
-#include "TimeUtils.h"
+#include "../common/TimeUtils.h"
+#include "../common/EntryCard.h"
 #include <iostream>
 #include <cstddef>
 #include <ctime>

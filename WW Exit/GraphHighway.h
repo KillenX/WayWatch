@@ -1,7 +1,7 @@
 #pragma once
 #include "Matrix.h"
-#include "debug.h"
-#include "CsvParser.h"
+#include "../common/debug.h"
+#include "../common/CsvParser.h"
 #include <map>
 
 constexpr char *FILE_ADJ_MATRIX = "./data/AdjMatrix.csv";

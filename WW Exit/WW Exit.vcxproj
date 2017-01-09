@@ -112,29 +112,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\Console.cpp" />
+    <ClCompile Include="..\common\CsvParser.cpp" />
     <ClCompile Include="..\common\EntryCard.cpp" />
     <ClCompile Include="..\common\Login.cpp" />
+    <ClCompile Include="..\common\TimeUtils.cpp" />
     <ClCompile Include="..\common\UserManager.cpp" />
-    <ClCompile Include="CsvParser.cpp" />
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Receipt.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Ticket.cpp" />
-    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\Console.h" />
+    <ClInclude Include="..\common\CsvParser.h" />
+    <ClInclude Include="..\common\debug.h" />
     <ClInclude Include="..\common\EntryCard.h" />
     <ClInclude Include="..\common\Login.h" />
+    <ClInclude Include="..\common\TimeUtils.h" />
     <ClInclude Include="..\common\UserManager.h" />
-    <ClInclude Include="CsvParser.h" />
-    <ClInclude Include="debug.h" />
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Receipt.h" />
     <ClInclude Include="Ticket.h" />
-    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WWExit.h" />
   </ItemGroup>
   <ItemGroup>

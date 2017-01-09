@@ -30,13 +30,7 @@
     <ClCompile Include="..\common\UserManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimeUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Ticket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CsvParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\common\Console.cpp">
@@ -48,11 +42,14 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\TimeUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\CsvParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphHighway.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -71,19 +68,22 @@
     <ClInclude Include="..\common\Login.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TimeUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ticket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CsvParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\common\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\common\EntryCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CsvParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\TimeUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
