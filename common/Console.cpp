@@ -19,7 +19,6 @@ namespace Console
         std::cout << "\033[2J\033[1;1H"; // Magic
 
         #elif defined(_WIN32)
-		// ERROR HERE. CAN'T COMPILE: uninit. local var. consoleinfo used
         auto consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
         COORD topLeft = {0,0};
         CONSOLE_SCREEN_BUFFER_INFO consoleInfo;

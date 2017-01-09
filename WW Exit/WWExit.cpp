@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <sstream>
 
-const char* TIME_FORMAT = "%d-%m-%y %H:%M:%S";
+const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
 
 WWExit::WWExit() : programExit(false), graphHighway()
 {
@@ -61,7 +61,6 @@ void WWExit::initOptions()
 // TODO: move input queries to seperate function
 void WWExit::tollPayment()
 {
-	// get exit time
 	std::time_t exitTime = std::time(NULL);
 	std::string exitTimeString = TimeUtils::Time2String(exitTime, TIME_FORMAT);
 
@@ -73,18 +72,10 @@ void WWExit::tollPayment()
 	entryCard = EntryCardNS::readEntryCard(entryCardId);
 
 	int entryNode = std::get<0>(entryCard);
-	std::string stringDate = std::get<1>(entryCard);
-	std::string stringTime = std::get<2>(entryCard);
 	std::string vehicleCategory = std::get<3>(entryCard);
-	std::string stringPlates = std::get<4>(entryCard);
-
-	std::string entryTimeString = stringDate + " " + stringTime;
-	std::istringstream timeStream(entryTimeString);
-
-	// get entry time
-	std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
-	std::time_t entryTime = TimeUtils::StringStream2Time(timeStream, TIME_FORMAT);
-	// std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT); wont need it as long as input gives correct time format??
+	std::string licensePlates = std::get<4>(entryCard);
+	std::string entryTimeString = std::get<1>(entryCard) + " " + std::get<2>(entryCard);
+	std::time_t entryTime = TimeUtils::String2Time(entryTimeString, TIME_FORMAT);
 
 	// calculate toll and do speed control
 	double toll = graphHighway.getToll(entryNode, tollBoothNumber, vehicleCategory);
@@ -122,10 +113,10 @@ void WWExit::tollPayment()
 		if (hasViolated)
 		{
 			//TODO: replace "licensePlate" with EntryCard.licensePlate and 245 with actual ticket price
-			Ticket t(exitTimeString, stringPlates, 245);
+			Ticket t(exitTimeString, licensePlates, 100);
 
 			// TODO: replace std::string("LicensePlate") with EntryCard.licensePlate
-			std::string fileName = std::string("Tickets/Ticket") + stringPlates;
+			std::string fileName = std::string("Tickets/Ticket") + licensePlates;
 
 			std::ofstream file(fileName, std::fstream::app);
 			t.printTicketHeader(file);

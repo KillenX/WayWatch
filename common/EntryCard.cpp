@@ -28,7 +28,7 @@ namespace EntryCardNS
 		time << std::put_time(&tm, "%H:%M:%S");
 
 		confirmation << "========================================" << std::endl; //40 chars long
-		confirmation << "Entry node:       " << entryNode << std::endl; //17 chars long
+		confirmation << "Entry node:      " << entryNode << std::endl; //17 chars long
 		confirmation << "Date:            " << date.str() << std::endl;
 		confirmation << "Time:            " << time.str() << std::endl;
 		confirmation << "Category:        " << vehicleCategory << std::endl;
@@ -52,7 +52,7 @@ namespace EntryCardNS
 		confirmation.ignore(41, '\n');
 		confirmation.ignore(17);
 		confirmation >> entryNode;
-		confirmation.ignore(17);
+		confirmation.ignore(18);
 		std::getline(confirmation, date);
 		confirmation.ignore(17);
 		std::getline(confirmation, time);

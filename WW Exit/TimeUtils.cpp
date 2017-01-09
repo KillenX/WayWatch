@@ -1,5 +1,8 @@
 #include "TimeUtils.h"
 #include <iomanip>
+#include <sstream>
+#include <string>
+#include <iostream>
 
 namespace TimeUtils
 {
@@ -14,12 +17,12 @@ namespace TimeUtils
 		return std::string(buff);
 	}
 
-	std::time_t StringStream2Time(std::istream &istream, const char* formatString)
+	std::time_t String2Time(const std::string &string, const char* formatString)
 	{
 		std::tm tm;
-
+		std::istringstream iss(string);
 		memset(&tm, 0, sizeof(std::tm));
-		istream >> std::get_time(&tm, formatString);
+		iss >> std::get_time(&tm, formatString);
 
 		return mktime(&tm);
 	}

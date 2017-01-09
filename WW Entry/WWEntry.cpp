@@ -3,9 +3,9 @@
 #include "../common/UserManager.h"
 #include "../common/Console.h"
 #include "EntryCard.h"
-#include <regex>
 #include <iostream>
 #include <cstddef>
+#include <ctime>
 
 WWEntry::WWEntry():programExit(false)
 {
