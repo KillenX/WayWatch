@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\AdjMatrix.csv" />
+    <None Include="data\EdgeData.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

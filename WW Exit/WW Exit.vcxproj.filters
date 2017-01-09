@@ -81,5 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\AdjMatrix.csv" />
+    <None Include="data\EdgeData.csv" />
   </ItemGroup>
 </Project>
