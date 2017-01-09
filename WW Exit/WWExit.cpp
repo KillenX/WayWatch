@@ -20,7 +20,7 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
-	graphHighway.draw();
+	//graphHighway.draw();
 
 	do 
 	{
@@ -33,6 +33,7 @@ void WWExit::run()
 		printOptions();
 
 		int selection;
+		std::cout << "Izaberite opciju: ";
 		std::cin >> selection;
 		selection--; // menu options are [1...n], array is [0...n-1]
 
@@ -61,33 +62,27 @@ void WWExit::initOptions()
 // TODO: move input queries to seperate function
 void WWExit::tollPayment()
 {
+	std::cout << "Registarske tablice: ";
+	std::string licensePlate;
+	std::cin >> licensePlate;
+
 	std::time_t exitTime = std::time(NULL);
 	std::string exitTimeString = TimeUtils::Time2String(exitTime, TIME_FORMAT);
 
-	std::string entryCardId;
-	std::cout << "Entry card number: ";
-	std::cin >> entryCardId;
-
-	EntryCard entryCard;
-	entryCard = EntryCardNS::readEntryCard(entryCardId);
-
-	int entryNode = std::get<0>(entryCard);
-	std::string vehicleCategory = std::get<3>(entryCard);
-	std::string licensePlates = std::get<4>(entryCard);
-	std::string entryTimeString = std::get<1>(entryCard) + " " + std::get<2>(entryCard);
-	std::time_t entryTime = TimeUtils::String2Time(entryTimeString, TIME_FORMAT);
+	EntryCard confirmation;
+	confirmation.readEntryCard("../data/Confirmations/" + std::string("Confirmation") + licensePlate + ".txt");
 
 	// calculate toll and do speed control
-	double toll = graphHighway.getToll(entryNode, tollBoothNumber, vehicleCategory);
-	double travelTime = difftime(exitTime, entryTime) / 60; // divide seconds by 60 to get in minutes
-	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, travelTime);
+	double toll = graphHighway.getToll(confirmation.getEntryTollbooth(), tollBoothNumber, confirmation.getVehicleCategory());
+	double travelTime = difftime(exitTime, TimeUtils::String2Time(confirmation.getDateTime(), TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
+	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), tollBoothNumber, travelTime);
 
 	// TODO: algorithm for receiptNumber
 	int receiptNumber = 1;
 
-	Receipt receipt(entryTimeString, entryNode,
+	Receipt receipt(confirmation.getDateTime(), confirmation.getEntryTollbooth(),
 		exitTimeString, tollBoothNumber,
-		vehicleCategory, toll, hasViolated,
+		confirmation.getVehicleCategory(), toll, hasViolated,
 		receiptNumber);
 
 	receipt.printReceiptHeader(std::cout);
@@ -103,7 +98,7 @@ void WWExit::tollPayment()
 	// TODO: make option selection a loop until right choice is made
 	if (choice == 1)
 	{
-		std::string fileName = std::string("Receipts/Receipt") + std::to_string(receiptNumber) + std::string(".txt");
+		std::string fileName = std::string("../data/Receipts/Receipt") + confirmation.getLicensePlate() + ".txt";
 		std::ofstream file(fileName, std::fstream::app);
 		receipt.printReceiptHeader(file);
 		receipt.printReceipt(file);
@@ -112,11 +107,9 @@ void WWExit::tollPayment()
 
 		if (hasViolated)
 		{
-			//TODO: replace "licensePlate" with EntryCard.licensePlate and 245 with actual ticket price
-			Ticket t(exitTimeString, licensePlates, 100);
+			Ticket t(exitTimeString, licensePlate, 100);
 
-			// TODO: replace std::string("LicensePlate") with EntryCard.licensePlate
-			std::string fileName = std::string("Tickets/Ticket") + licensePlates;
+			std::string fileName = std::string("Tickets/Ticket") + licensePlate;
 
 			std::ofstream file(fileName, std::fstream::app);
 			t.printTicketHeader(file);

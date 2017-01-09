@@ -118,7 +118,7 @@
     <ClCompile Include="CsvParser.cpp" />
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Receipt.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Ticket.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WWExit.cpp" />

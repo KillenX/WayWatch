@@ -5,75 +5,57 @@
 #include <ctime>
 #include <iomanip>
 
-namespace EntryCardNS
+EntryCard::EntryCard(const std::string licensePlate, const std::string vehicleCategory, const std::string dateTime, const int entryTollbooth)
+	: licensePlate(licensePlate),
+	vehicleCategory(vehicleCategory),
+	dateTime(dateTime),
+	entryTollbooth(entryTollbooth) {}
+
+
+void EntryCard::readEntryCard(const std::string fileName)
 {
-	void printEntryCard(const unsigned counter, const int entryNode, const std::string vehicleCategory, const std::string registerPlates)
-	{
-		auto t = std::time(nullptr); // current date&time
+	std::ifstream file(fileName);
 
-		std::tm tm;
-		localtime_s(&tm, &t);
+	std::string header;
 
-		std::string number;
-		std::ostringstream convert;
-		convert << counter;
-		number = convert.str();
+	file >> header >> header >> header  //Skips the header from a file
+		>> header >> header >> header >> header >> header >> header >> header >> header >> header
+		>> header >> header >> header;
 
-		std::ofstream confirmation(ENTRY_CARD_FOLDER + "confirmation" + number + ".txt", std::ios::out); //new confirmation made
+	std::string date;
+	std::string time;
 
-		std::ostringstream date;
-		std::ostringstream time;
+	file >> date;
+	file >> time;
 
-		date << std::put_time(&tm, "%d-%m-%Y");
-		time << std::put_time(&tm, "%H:%M:%S");
+	dateTime = date + " " + time;
 
-		confirmation << "========================================" << std::endl; //40 chars long
-		confirmation << "Entry node:      " << entryNode << std::endl; //17 chars long
-		confirmation << "Date:            " << date.str() << std::endl;
-		confirmation << "Time:            " << time.str() << std::endl;
-		confirmation << "Category:        " << vehicleCategory << std::endl;
-		confirmation << "Register plates: " << registerPlates << std::endl;
-		confirmation << "========================================" << std::endl;
-		confirmation.close();
-	}
+	file >> entryTollbooth;
+	file >> vehicleCategory;
+	file >> licensePlate;
 
-	EntryCard readEntryCard(const std::string& ID)
-	{
-
-		std::ifstream confirmation(ENTRY_CARD_FOLDER + "confirmation" + ID + ".txt");
-
-		int entryNode;
-		std::string registrationPlates;
-		std::string date;
-		std::string time;
-		std::string category;
-
-		// Code that is heavily dependant on the look of the confirmationX.txt file
-		confirmation.ignore(41, '\n');
-		confirmation.ignore(17);
-		confirmation >> entryNode;
-		confirmation.ignore(18);
-		std::getline(confirmation, date);
-		confirmation.ignore(17);
-		std::getline(confirmation, time);
-		confirmation.ignore(17);
-		std::getline(confirmation, category);
-		confirmation.ignore(17);
-		std::getline(confirmation, registrationPlates);
-
-		confirmation.close();
-
-		return std::make_tuple(entryNode, date, time, category, registrationPlates);
-	}
-
-	bool confirmationExists(const std::string& ID)
-	{
-		std::string number;
-		std::ostringstream convert;
-		convert << ID;
-		number = convert.str();
-
-		std::ifstream confirmation(ENTRY_CARD_FOLDER + "confirmation" + ID + ".txt");
-		return confirmation.is_open();
-	}
+	file.close();
 }
+
+
+void EntryCard::printEntryCardHeader(std::ostream &str)
+{
+	str << "========================== ================== ===============" << std::endl
+		<< " ENTRY DATE TIME / NUMBER   VEHICLE CATEGORY   LICENSE PLATE" << std::endl
+		<< "========================== ================== ===============" << std::endl;
+}
+
+void EntryCard::printEntryCard(std::ostream &str)
+{
+	//TODO: fix formatting
+	str << dateTime << " " << entryTollbooth << " " << vehicleCategory << " " << licensePlate << std::endl
+		<< "========================== ================== ===============" << std::endl;
+}
+
+int EntryCard::getEntryTollbooth() const { return entryTollbooth; }
+
+std::string EntryCard::getVehicleCategory() const { return vehicleCategory; }
+
+std::string EntryCard::getDateTime() const { return dateTime; }
+
+std::string EntryCard::getLicensePlate() const { return licensePlate; }

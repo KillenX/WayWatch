@@ -17,7 +17,7 @@ namespace TimeUtils
 		return std::string(buff);
 	}
 
-	std::time_t String2Time(const std::string &string, const char* formatString)
+	std::time_t String2Time(const std::string string, const char* formatString)
 	{
 		std::tm tm;
 		std::istringstream iss(string);

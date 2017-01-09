@@ -3,9 +3,12 @@
 #include "../common/UserManager.h"
 #include "../common/Console.h"
 #include "EntryCard.h"
+#include "TimeUtils.h"
 #include <iostream>
 #include <cstddef>
 #include <ctime>
+
+const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
 
 WWEntry::WWEntry():programExit(false)
 {
@@ -59,17 +62,22 @@ void WWEntry::initOptions()
 
 void WWEntry::generateEntryCard()
 {
+	/*
     std::cout << "Registarske tablice: ";
-    std::string platesId;
-    std::cin >> platesId;
+	std::string licensePlate;
+    std::cin >> licensePlate;
 
     std::string vehicleCategory = inputCategory();
 
-	// TODO: obvious.
 	int entryNode;
+	std::cout << 
 	std::cin >> entryNode;
 
-	EntryCardNS::printEntryCard((int)std::time(NULL), entryNode, vehicleCategory, platesId);
+	std::time_t time = std::time(NULL);
+	std::string dateTime = TimeUtils::Time2String(time, TIME_FORMAT);
+
+	EntryCard confirmation(licensePlate, vehicleCategory, dateTime, entryNode);
+	*/
 }
 
 void WWEntry::exit()
