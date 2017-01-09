@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iomanip>
 
-namespace Confirmation
+namespace EntryCardNS
 {
 	void printConfirmation(const unsigned counter, const int entryNode, const std::string vehicleCategory, const std::string registerPlates)
 	{
@@ -37,12 +37,12 @@ namespace Confirmation
 		confirmation.close();
 	}
 
-	std::tuple<std::string, std::string, std::string, std::string, std::string> readConfirmation(const std::string& ID)
+	EntryCard readConfirmation(const std::string& ID)
 	{
 
 		std::ifstream confirmation(ENTRY_CARD_FOLDER + "confirmation" + ID + ".txt");
 
-		std::string enterence;
+		int entryNode;
 		std::string registrationPlates;
 		std::string date;
 		std::string time;
@@ -51,7 +51,7 @@ namespace Confirmation
 		// Code that is heavily dependant on the look of the confirmationX.txt file
 		confirmation.ignore(41, '\n');
 		confirmation.ignore(17);
-		std::getline(confirmation, enterence);
+		confirmation >> entryNode;
 		confirmation.ignore(17);
 		std::getline(confirmation, date);
 		confirmation.ignore(17);
@@ -63,7 +63,7 @@ namespace Confirmation
 
 		confirmation.close();
 
-		return std::make_tuple(enterence, date, time, category, registrationPlates);
+		return std::make_tuple(entryNode, date, time, category, registrationPlates);
 	}
 
 	bool confirmationExists(const std::string& ID)

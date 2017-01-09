@@ -61,40 +61,30 @@ void WWExit::initOptions()
 // TODO: move input queries to seperate function
 void WWExit::tollPayment()
 {
+	// get exit time
+	std::time_t exitTime = std::time(NULL);
+	std::string exitTimeString = TimeUtils::Time2String(exitTime, TIME_FORMAT);
+
 	std::string entryCardId;
 	std::cout << "Entry card number: ";
 	std::cin >> entryCardId;
 
-	std::tuple<std::string, std::string, std::string, std::string, std::string> entryCard;
+	EntryCard entryCard;
+	entryCard = EntryCardNS::readConfirmation(entryCardId);
 
-	entryCard = Confirmation::readConfirmation(entryCardId);
-
-	std::string stringEntryNode = std::get<0>(entryCard);
+	int entryNode = std::get<0>(entryCard);
 	std::string stringDate = std::get<1>(entryCard);
 	std::string stringTime = std::get<2>(entryCard);
-	std::string stringCategory = std::get<3>(entryCard);
+	std::string vehicleCategory = std::get<3>(entryCard);
 	std::string stringPlates = std::get<4>(entryCard);
 
-	// get exit time
-	std::time_t exitTime = std::time(NULL);
-	std::string exitDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT);
+	std::string entryTimeString = stringDate + " " + stringTime;
+	std::istringstream timeStream(entryTimeString);
 
 	// get entry time
 	std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
-	std::time_t entryTime = TimeUtils::StringStream2Time(std::cin, TIME_FORMAT);
-	std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT);
-
-	// get entry node
-	// TODO: input, range check;
-	std::cout << "Unesite broj ulaznog cvora: ";
-	int entryNode;
-	std::cin >> entryNode;
-
-	// get vehicle category
-	// TODO: input check
-	std::cout << "Unesite kategoriju vozila: ";
-	std::string vehicleCategory;
-	std::cin >> vehicleCategory;
+	std::time_t entryTime = TimeUtils::StringStream2Time(timeStream, TIME_FORMAT);
+	// std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT); wont need it as long as input gives correct time format??
 
 	// calculate toll and do speed control
 	double toll = graphHighway.getToll(entryNode, tollBoothNumber, vehicleCategory);
@@ -104,8 +94,8 @@ void WWExit::tollPayment()
 	// TODO: algorithm for receiptNumber
 	int receiptNumber = 1;
 
-	Receipt receipt(entryDateTime, entryNode,
-		exitDateTime, tollBoothNumber,
+	Receipt receipt(entryTimeString, entryNode,
+		exitTimeString, tollBoothNumber,
 		vehicleCategory, toll, hasViolated,
 		receiptNumber);
 
@@ -132,10 +122,10 @@ void WWExit::tollPayment()
 		if (hasViolated)
 		{
 			//TODO: replace "licensePlate" with EntryCard.licensePlate and 245 with actual ticket price
-			Ticket t(exitDateTime, "licensePlate", 245); 
+			Ticket t(exitTimeString, stringPlates, 245);
 
 			// TODO: replace std::string("LicensePlate") with EntryCard.licensePlate
-			std::string fileName = std::string("Tickets/Ticket") + std::string("LicensePlate.txt");
+			std::string fileName = std::string("Tickets/Ticket") + stringPlates;
 
 			std::ofstream file(fileName, std::fstream::app);
 			t.printTicketHeader(file);

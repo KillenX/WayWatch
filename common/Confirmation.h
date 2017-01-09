@@ -3,8 +3,9 @@
 #include <tuple>
 
 const std::string ENTRY_CARD_FOLDER = "../data/entryCards/";
+using EntryCard = std::tuple<int, std::string, std::string, std::string, std::string>;
 
-namespace Confirmation
+namespace EntryCardNS
 {
 	void printConfirmation(const unsigned counter,
 		const int entryNode,
@@ -12,8 +13,7 @@ namespace Confirmation
 		const std::string registerPlates);
 
 	// entryNode, date, time, category, reg. plates
-	std::tuple<std::string, std::string, std::string, std::string, std::string> 
-		readConfirmation(const std::string& entryCardId);
+	EntryCard readConfirmation(const std::string& entryCardId);
 
 	bool confirmationExists(const std::string& entryCardId);
 }
