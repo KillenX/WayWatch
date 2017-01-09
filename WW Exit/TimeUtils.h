@@ -5,5 +5,5 @@
 namespace TimeUtils
 {
 	std::string Time2String(const std::time_t &time, const char *formatString);
-	std::time_t String2Time(std::string string, const char *formatString);
+	std::time_t String2Time(const std::string &string, const char *formatString);
 }

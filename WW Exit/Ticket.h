@@ -5,7 +5,6 @@
 class Ticket
 {
 public:
-
 	Ticket(std::string, std::string, double);
 
 	void printTicketHeader(std::ostream &);
