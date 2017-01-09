@@ -9,22 +9,29 @@ bool UserManager::initialized = false;
 
 UserManager::UserManager()
 {
+
     if(initialized)
         throw std::logic_error("Only one instance allowed");
 
     initUserTable();
     initialized = true;
+
 }
+
 
 bool UserManager::login(const std::string &username,const std::string &password)
 {
-    auto end = mUserTable.end();
-    auto userEntry = mUserTable.find(username);
-	return userEntry != end && userEntry->second == password;
+
+    auto end = userTable.end();
+    auto userEntry = userTable.find(username);
+    return userEntry != end && userEntry->second == password;
+
 }
+
 
 void UserManager::initUserTable()
 {
+
     std::ifstream dbFile(database);
 
     if(!dbFile.is_open())
@@ -34,8 +41,13 @@ void UserManager::initUserTable()
     std::string password;
 
     while(dbFile >> username >> password)
-        mUserTable[username] = password;
+        userTable[username] = password;
 
-    if(mUserTable.size() == 0 )
+
+    if(userTable.size() == 0 )
         throw std::runtime_error("No users defined in database file: " + database); // Custom exeption?
+
 }
+
+
+
