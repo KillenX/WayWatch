@@ -1,19 +1,26 @@
 #pragma once
 #include <string>
-#include <tuple>
+#include <ctime>
 
-const std::string ENTRY_CARD_FOLDER = "../data/entryCards/";
-using EntryCard = std::tuple<int, std::string, std::string, std::string, std::string>;
-
-namespace EntryCardNS
+class EntryCard
 {
-	void printEntryCard(const unsigned counter,
-		const int entryNode,
-		const std::string vehicleCategory,
-		const std::string registerPlates);
+public:
+	EntryCard(const std::string = "", const std::string = "", const std::string = "", const int = -1);
 
-	// entryNode, date, time, category, reg. plates
-	EntryCard readEntryCard(const std::string& entryCardId);
+	void readEntryCard(const std::string);
 
-	bool confirmationExists(const std::string& entryCardId);
-}
+	void printEntryCardHeader(std::ostream &str);
+	void printEntryCard(std::ostream &str);
+
+	int getEntryTollbooth() const;
+	std::string getVehicleCategory() const;
+	std::string getDateTime() const;
+	std::string getLicensePlate() const;
+
+private:
+	std::string vehicleCategory;
+	std::string licensePlate;
+	int entryTollbooth;
+	std::string dateTime;
+};
+

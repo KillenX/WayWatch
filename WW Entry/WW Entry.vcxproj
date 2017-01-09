@@ -24,6 +24,7 @@
     <ClCompile Include="..\common\Login.cpp" />
     <ClCompile Include="..\common\UserManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WWEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +32,7 @@
     <ClInclude Include="..\common\Console.h" />
     <ClInclude Include="..\common\Login.h" />
     <ClInclude Include="..\common\UserManager.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WWEntry.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
