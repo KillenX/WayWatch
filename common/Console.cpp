@@ -25,6 +25,8 @@ namespace Console
         CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
         DWORD written;
 
+        GetConsoleScreenBufferInfo(consoleHandle,&consoleInfo);
+
         auto bufferSize = consoleInfo.dwSize.X * consoleInfo.dwSize.Y;
 
         FillConsoleOutputCharacter(consoleHandle,' ',bufferSize,topLeft,&written);
