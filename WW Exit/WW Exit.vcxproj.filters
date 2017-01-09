@@ -45,7 +45,7 @@
     <ClCompile Include="..\common\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\Confirmation.cpp">
+    <ClCompile Include="..\common\EntryCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClInclude Include="..\common\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Confirmation.h">
+    <ClInclude Include="..\common\EntryCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

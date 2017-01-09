@@ -1,6 +1,6 @@
 #include "WWExit.h"
 #include "UserManager.h"
-#include "Confirmation.h"
+#include "EntryCard.h"
 #include "Receipt.h"
 #include "Ticket.h"
 #include "TimeUtils.h"
@@ -70,7 +70,7 @@ void WWExit::tollPayment()
 	std::cin >> entryCardId;
 
 	EntryCard entryCard;
-	entryCard = EntryCardNS::readConfirmation(entryCardId);
+	entryCard = EntryCardNS::readEntryCard(entryCardId);
 
 	int entryNode = std::get<0>(entryCard);
 	std::string stringDate = std::get<1>(entryCard);

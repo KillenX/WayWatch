@@ -2,7 +2,7 @@
 #include "../common/Login.h"
 #include "../common/UserManager.h"
 #include "../common/Console.h"
-#include "Confirmation.h"
+#include "EntryCard.h"
 #include <regex>
 #include <iostream>
 #include <cstddef>
@@ -69,7 +69,7 @@ void WWEntry::generateEntryCard()
 	int entryNode;
 	std::cin >> entryNode;
 
-	Confirmation::printConfirmation((int)std::time(NULL), entryNode, vehicleCategory, platesId);
+	EntryCardNS::printEntryCard((int)std::time(NULL), entryNode, vehicleCategory, platesId);
 }
 
 void WWEntry::exit()

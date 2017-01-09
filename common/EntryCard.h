@@ -7,13 +7,13 @@ using EntryCard = std::tuple<int, std::string, std::string, std::string, std::st
 
 namespace EntryCardNS
 {
-	void printConfirmation(const unsigned counter,
+	void printEntryCard(const unsigned counter,
 		const int entryNode,
 		const std::string vehicleCategory,
 		const std::string registerPlates);
 
 	// entryNode, date, time, category, reg. plates
-	EntryCard readConfirmation(const std::string& entryCardId);
+	EntryCard readEntryCard(const std::string& entryCardId);
 
 	bool confirmationExists(const std::string& entryCardId);
 }

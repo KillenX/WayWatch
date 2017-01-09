@@ -1,4 +1,4 @@
-#include "Confirmation.h"
+#include "EntryCard.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -7,7 +7,7 @@
 
 namespace EntryCardNS
 {
-	void printConfirmation(const unsigned counter, const int entryNode, const std::string vehicleCategory, const std::string registerPlates)
+	void printEntryCard(const unsigned counter, const int entryNode, const std::string vehicleCategory, const std::string registerPlates)
 	{
 		auto t = std::time(nullptr); // current date&time
 
@@ -37,7 +37,7 @@ namespace EntryCardNS
 		confirmation.close();
 	}
 
-	EntryCard readConfirmation(const std::string& ID)
+	EntryCard readEntryCard(const std::string& ID)
 	{
 
 		std::ifstream confirmation(ENTRY_CARD_FOLDER + "confirmation" + ID + ".txt");

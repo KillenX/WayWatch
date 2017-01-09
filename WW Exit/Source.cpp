@@ -4,7 +4,7 @@
 
 int main()
 {
-	//Login::tryLogin();
+	//Login::tryLogin(); add when finished 
 
 	WWExit app;
 	app.run();
