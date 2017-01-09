@@ -2,7 +2,6 @@
 #include "common/Login.h"
 #include "common/UserManager.h"
 #include "common/Console.h"
-#include <regex>
 #include <iostream>
 #include <cstddef>
 
