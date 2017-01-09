@@ -18,6 +18,21 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\common\EntryCard.cpp" />
+    <ClCompile Include="..\common\Console.cpp" />
+    <ClCompile Include="..\common\Login.cpp" />
+    <ClCompile Include="..\common\UserManager.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="WWEntry.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\common\EntryCard.h" />
+    <ClInclude Include="..\common\Console.h" />
+    <ClInclude Include="..\common\Login.h" />
+    <ClInclude Include="..\common\UserManager.h" />
+    <ClInclude Include="WWEntry.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9D677F31-A356-4EC3-B245-236311AA6A6B}</ProjectGuid>
     <RootNamespace>WWEntry</RootNamespace>
@@ -82,7 +97,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../common/</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,17 +125,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\common\Confirmation.cpp" />
-    <ClCompile Include="..\common\InputConfirmationException.cpp" />
-    <ClCompile Include="..\common\OutputConfirmationException.cpp" />
-    <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\common\Confirmation.h" />
-    <ClInclude Include="..\common\InputConfirmationException.h" />
-    <ClInclude Include="..\common\OutputConfirmationException.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
