@@ -4,8 +4,7 @@
 #include <string>
 #include <utility>
 #include "GraphHighway.h"
-
-constexpr auto FILE_ADJ_MATRIX = "./data/AdjMatrix.csv";
+#include "Receipt.h"
 
 class WWExit
 {
@@ -21,7 +20,7 @@ private:
 
 	bool validateSelection(std::istream &str, int selection);
 
-	void printOptions();
+	void printOptions() const;
 	void initOptions();
 	void tollPayment();
 	void exit();

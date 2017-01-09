@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="..\common\Login.cpp" />
     <ClCompile Include="..\common\UserManager.cpp" />
+    <ClCompile Include="CsvParser.cpp" />
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Receipt.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="..\common\Login.h" />
     <ClInclude Include="..\common\UserManager.h" />
+    <ClInclude Include="CsvParser.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />

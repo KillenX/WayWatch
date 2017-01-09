@@ -6,19 +6,25 @@
 
 // TODO: make code more modular
 // TODO: implement illegal input checking
-// Parses .CSV and loads values into adjMatrix
-GraphHighway::GraphHighway(const std::string& FileLocation) 
+// TODO: rewrite comments
+
+GraphHighway::GraphHighway() 
 {
-	std::ifstream fAdjMatrix;
-	fAdjMatrix.open(FileLocation);
-	
-	// for dumping unneccesary data from stream
-	std::string dump;
+	loadAdjMatrix();
+	loadEdgeData();
+	floyd();
+}
+
+void GraphHighway::loadAdjMatrix()
+{
+	CsvParser csvParser;
+	csvParser.open(FILE_ADJ_MATRIX);
 
 	// load first line (contains node amount)
-	fAdjMatrix >> numNodes;
+	csvParser >> numNodes;
+
 	// skip rest of row after numNodes is read
-	std::getline(fAdjMatrix, dump);
+	csvParser.goNextLine();
 
 	// init adjMatrix (call def. constr. for edges)
 	adjMatrix.resize(numNodes, std::vector<Edge>(numNodes));
@@ -30,14 +36,9 @@ GraphHighway::GraphHighway(const std::string& FileLocation)
 		{
 			Edge &currEdge = adjMatrix.at(i).at(j);
 
-			// check if edge exists by peeking for comma
-			if (fAdjMatrix.peek() != ',')
-			{
-				currEdge.doesExist = true;
-				fAdjMatrix >> currEdge.distanceDirect >> currEdge.speedLimit >> currEdge.toll;
-				currEdge.distanceShortest = currEdge.distanceDirect;
-				currEdge.minTravelTime = 60 * currEdge.distanceDirect /currEdge.speedLimit; // [1h = 60min]
-			}
+			// check if edge exists
+			if (!csvParser.currentCellEnded())
+				currEdge.doesExist = true; // should be constructor-initialized to false otherwise
 
 			else
 			{
@@ -47,23 +48,95 @@ GraphHighway::GraphHighway(const std::string& FileLocation)
 			}
 
 			// fill into symmetrical matrix element... [i][j] == [j][i]
-			adjMatrix.at(j).at(i) = currEdge;
+			adjMatrix.at(j).at(i) = currEdge; 
 
-			// ignore up to next comma in .csv
-			fAdjMatrix.ignore(INT_MAX, ',');
+			csvParser.goNextCol();
 		}
 
 		// skip rest of row after all elements in bottom triangular matrix row are read
-		std::getline(fAdjMatrix, dump);
+		csvParser.goNextLine();
 	}
-	
-	fAdjMatrix.close();
 
-	floyd();
+	csvParser.close();
 }
 
-// TODO: avoid code repetition?
-// calculates minTravelTime and toll between each node pair in graph
+void GraphHighway::loadEdgeData()
+{
+	CsvParser csvParser;
+	csvParser.open(FILE_EDGE_DATA);
+	csvParser.goNextCol(4); // skip unecessary header part
+	
+	// Load vehicle categories
+
+	while (!csvParser.currentLineEnded())
+	{
+		std::string temp;
+		csvParser >> temp;
+		vehicleCategories.push_back(temp);
+		csvParser.goNextCol(); // definitely find better way plz
+	}
+
+	// prepare tolls map for floyd (if disconnected edges not init to 0, subscripting is out of range in Floyd's algorithm) -- PERHAPS merge loadEdgeData and loadAdjMatrix?
+	for (std::vector<Edge>& vector : adjMatrix)
+		for (Edge& edge : vector)
+		{
+			if (!edge.doesExist)
+			for (const std::string &category : vehicleCategories)
+				edge.tolls.try_emplace(category, 0.0);
+		}
+
+	csvParser.goNextLine();
+	
+	// load nodes
+	// move to function
+	while (!csvParser.reachedEOF())
+	{
+		int nodeA, nodeB;
+
+		csvParser >> nodeA;
+		csvParser.goNextCol();
+		csvParser >> nodeB;
+		csvParser.goNextCol();
+
+		// zero indexing prep.
+		nodeA--;
+		nodeB--;
+
+		Edge &currEdge = adjMatrix.at(nodeA).at(nodeB);
+
+		// TODO: error if not connected
+		if (currEdge.doesExist)
+		{
+			csvParser >> currEdge.distanceDirect;
+			csvParser.goNextCol();
+			csvParser >> currEdge.speedLimit;
+			csvParser.goNextCol();
+
+			// is it guaranteed that the order of categories in table is same as in vector? hopefully yes
+			// hopefully also guaranteed we won't fall into next line.
+			// what about undefined tolls in table? hopefully everything is set to something in EdgeData
+			// we're hoping too much?
+			for (const std::string &category : vehicleCategories)
+			{
+				double price;
+				csvParser >> price;
+				currEdge.tolls.try_emplace(category, price);
+				csvParser.goNextCol(); // goes to next line on last cell hopefully
+			}
+
+			currEdge.distanceShortest = currEdge.distanceDirect;
+			currEdge.minTravelTime = 60 * currEdge.distanceDirect / currEdge.speedLimit; // [1h = 60min]
+
+			adjMatrix.at(nodeB).at(nodeA) = currEdge; // sets symmetric element to be the same. bcz symmetric.
+		}
+
+		csvParser.goNextLine();
+	}
+
+	csvParser.close();
+}
+
+// calculates minTravelTime and toll per category between each node pair in graph
 // function should be reimplemented based on future plans?
 void GraphHighway::floyd()
 {
@@ -83,7 +156,8 @@ void GraphHighway::floyd()
 				if (ij.distanceShortest > ik.distanceShortest + kj.distanceShortest)
 				{
 					ij.distanceShortest = ik.distanceShortest + kj.distanceShortest;
-					ij.toll = ik.toll + kj.toll;
+					for (const std::string &category : vehicleCategories)
+						ij.tolls.at(category) = ik.tolls.at(category) + kj.tolls.at(category);
 				}
 			}
 }
@@ -105,12 +179,12 @@ bool GraphHighway::isConnected(const int startNode, const int endNode) const
 	return true;
 }
 
-double GraphHighway::getToll(const int startNode, const int endNode) const
+double GraphHighway::getToll(const int startNode, const int endNode, const std::string &category) const
 {
-	return adjMatrix.at(startNode - 1).at(endNode - 1).toll;
+	return adjMatrix.at(startNode - 1).at(endNode - 1).tolls.at(category);
 }
 
-bool GraphHighway::hasViolatedSpeedLimit(const int startNode, const int endNode, const double travelTime)
+bool GraphHighway::hasViolatedSpeedLimit(const int startNode, const int endNode, const double travelTime) const
 {
 	return ((adjMatrix.at(startNode - 1).at(endNode - 1).minTravelTime > travelTime) ? true : false);
 }
@@ -166,8 +240,8 @@ void GraphHighway::draw() const
 			
 			// write out element
 			const Edge &currNode = adjMatrix.at(i).at(j);
-			if (currNode.toll != 0.0)
-				std::cout << currNode.toll;
+			if (currNode.distanceDirect != 0.0)
+				std::cout << currNode.distanceDirect;
 			else std::cout << ' ';
 			std::cout << '|';
 

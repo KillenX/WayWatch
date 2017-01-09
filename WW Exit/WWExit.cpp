@@ -10,7 +10,7 @@
 
 const char* TIME_FORMAT = "%d-%m-%y %H:%M:%S";
 
-WWExit::WWExit() : programExit(false), graphHighway(FILE_ADJ_MATRIX)
+WWExit::WWExit() : programExit(false), graphHighway()
 {
 	initOptions();
 }
@@ -19,9 +19,11 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
+	graphHighway.draw();
+
 	do 
 	{
-		std::cout << "Unesite broj naplatne kucice: " << std::endl;
+		std::cout << "Unesite broj naplatne kucice: ";
 		std::cin >> tollBoothNumber;
 	} while (tollBoothNumber < 1 || tollBoothNumber > tollBoothAmount);
 
@@ -40,7 +42,7 @@ void WWExit::run()
 	}
 }
 
-void WWExit::printOptions()
+void WWExit::printOptions() const
 {
 	for (std::size_t index = 0; index < options.size(); ++index)
 		std::cout << index + 1 << ". " << options[index].first << std::endl;
@@ -61,10 +63,11 @@ void WWExit::tollPayment()
 	// get exit time
 	std::time_t exitTime = std::time(NULL);
 	std::string exitDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT);
-	
+
 	// get entry time
-	std::time_t entryTime = std::time(NULL); //TODO: replace with entry time from EntryCard
-	std::string entryDateTime = TimeUtils::Time2String(exitTime, TIME_FORMAT); //TODO: replace with entry date from EntryCard
+	std::cout << "Unesite datum i vrijeme ulaska (DD-MM-YY HH:MM:SS): ";
+	std::time_t entryTime = TimeUtils::StringStream2Time(std::cin, TIME_FORMAT);
+	std::string entryDateTime = TimeUtils::Time2String(entryTime, TIME_FORMAT);
 
 	// get entry node
 	// TODO: input, range check;
@@ -79,16 +82,16 @@ void WWExit::tollPayment()
 	std::cin >> vehicleCategory;
 
 	// calculate toll and do speed control
-	double toll = graphHighway.getToll(entryNode, tollBoothNumber);
-	double travelTime = (exitTime - entryTime) / 60; // divide seconds by 60 to get in minutes
+	double toll = graphHighway.getToll(entryNode, tollBoothNumber, vehicleCategory);
+	double travelTime = difftime(exitTime, entryTime) / 60; // divide seconds by 60 to get in minutes
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(entryNode, tollBoothNumber, travelTime);
 
 	// TODO: algorithm for receiptNumber
 	int receiptNumber = 1;
 
-	Receipt receipt(entryDateTime, entryNode, 
-		exitDateTime, tollBoothNumber, 
-		vehicleCategory, toll, hasViolated, 
+	Receipt receipt(entryDateTime, entryNode,
+		exitDateTime, tollBoothNumber,
+		vehicleCategory, toll, hasViolated,
 		receiptNumber);
 
 	receipt.printReceiptHeader(std::cout);
