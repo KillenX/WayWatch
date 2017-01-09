@@ -14,6 +14,9 @@ private:
 		double distanceShortest = 0.0;	// used in Floyd, minimum possible travel distance between 2 nodes [km]
 		double minTravelTime	= 0.0;	// used in Floyd, minimum possible minimumTravelTime sum between 2 nodes [min]
 		double toll				= 0.0;	// toll sum between 2 nodes (based on shortest distance path) [currency]
+		
+		bool everythingZero();
+		bool isValideNonDiagonalEdge();
 	};
 
 	int numNodes;
@@ -21,6 +24,7 @@ private:
 
 	// Floyd algorithm, sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
 	void floyd(); 
+	bool edgeValidityCheck();
 public:
 	GraphHighway() = delete;
 	GraphHighway(const GraphHighway &) = delete;

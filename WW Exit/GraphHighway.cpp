@@ -4,6 +4,8 @@
 #include <string>
 #include "GraphHighway.h"
 
+#include <exception>
+
 // TODO: make code more modular
 // TODO: implement illegal input checking
 // Parses .CSV and loads values into adjMatrix
@@ -69,6 +71,13 @@ void GraphHighway::floyd()
 {
 	// make sure non-diagonal non-existent edges had minTravelTime and distanceShortest set to INFINITY
 	// make sure diagonal edges had everything set to 0
+
+	if (!edgeValidityCheck()) //add edgeValidityCheck 
+	{
+		std::runtime_error edgeNotValide("ERROR: Edge is not valide");
+		throw edgeNotValide;
+	}
+
 	for (int i = 0; i < numNodes; i++)
 		for (int j = 0; j < numNodes; j++)
 			for (int k = 0; k < numNodes; k++)
@@ -86,6 +95,28 @@ void GraphHighway::floyd()
 					ij.toll = ik.toll + kj.toll;
 				}
 			}
+}
+
+bool GraphHighway::edgeValidityCheck()
+{
+	for (int i = 0; i < numNodes; ++i)
+	{
+		Edge &ii = adjMatrix.at(i).at(i);
+		if (!ii.everythingZero())
+		{
+			return false;
+		}
+	}
+	for (int i = 0; i < numNodes; ++i)
+		for (int j = 0; j < numNodes; ++j)
+		{
+			Edge &ii = adjMatrix.at(i).at(j);
+			if (!ii.isValideNonDiagonalEdge())
+			{
+				return false;
+			}
+		}
+	return true;
 }
 
 int GraphHighway::getNumNodes()
@@ -189,3 +220,15 @@ void GraphHighway::draw() const
 	std::cout << std::endl;
 }
 #endif
+
+bool GraphHighway::Edge::everythingZero()
+{
+	return doesExist == false && speedLimit == 0 && distanceDirect == 0.0 && distanceShortest == 0.0 && minTravelTime == 0.0 && toll == 0.0;
+}
+
+bool GraphHighway::Edge::isValideNonDiagonalEdge()
+{
+	if (doesExist)
+		return true;
+	else return distanceShortest == INFINITY && minTravelTime == INFINITY;
+}
