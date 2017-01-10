@@ -8,13 +8,10 @@
 #include <cstddef>
 #include <ctime>
 
-const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
-
 WWEntry::WWEntry():programExit(false)
 {
     initOptions();
 }
-
 
 void WWEntry::run()
 {
@@ -62,7 +59,6 @@ void WWEntry::initOptions()
 
 void WWEntry::generateEntryCard()
 {
-	/*
     std::cout << "Registarske tablice: ";
 	std::string licensePlate;
     std::cin >> licensePlate;
@@ -70,14 +66,13 @@ void WWEntry::generateEntryCard()
     std::string vehicleCategory = inputCategory();
 
 	int entryNode;
-	std::cout << 
+	std::cout << "Ulazni cvor: ";
 	std::cin >> entryNode;
 
 	std::time_t time = std::time(NULL);
 	std::string dateTime = TimeUtils::Time2String(time, TIME_FORMAT);
 
-	EntryCard confirmation(licensePlate, vehicleCategory, dateTime, entryNode);
-	*/
+	EntryCard entryCard(licensePlate, vehicleCategory, dateTime, entryNode);
 }
 
 void WWEntry::exit()

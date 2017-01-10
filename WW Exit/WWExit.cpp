@@ -9,8 +9,6 @@
 #include <iomanip>
 #include <sstream>
 
-const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
-
 WWExit::WWExit() : programExit(false), graphHighway()
 {
 	initOptions();
@@ -20,7 +18,7 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
-	//graphHighway.draw();
+	//ggraphHighway.draw();
 
 	do 
 	{
