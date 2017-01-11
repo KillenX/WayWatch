@@ -20,13 +20,9 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
-	//graphHighway.draw();
+	graphHighway.draw();
 
-	do 
-	{
-		std::cout << "Unesite broj naplatne kucice: ";
-		std::cin >> tollBoothNumber;
-	} while (tollBoothNumber < 1 || tollBoothNumber > tollBoothAmount);
+	inputTollBoothNumber();
 
 	while (!programExit)
 	{
@@ -35,10 +31,9 @@ void WWExit::run()
 		int selection;
 		std::cout << "Izaberite opciju: ";
 		std::cin >> selection;
-		selection--; // menu options are [1...n], array is [0...n-1]
 
-		if (validateSelection(std::cin, selection))
-			options[selection].second();
+		if (validateSelection(std::cin, 1, options.size(), selection)) 
+			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
 		else
 			std::cout << "Greska. Ta opcija ne postoji." << std::endl;
 	}
@@ -71,10 +66,13 @@ void WWExit::tollPayment()
 
 	EntryCard confirmation;
 	confirmation.readEntryCard("../data/Confirmations/" + std::string("Confirmation") + licensePlate + ".txt");
-
+	
 	// calculate toll and do speed control
+
 	double toll = graphHighway.getToll(confirmation.getEntryTollbooth(), tollBoothNumber, confirmation.getVehicleCategory());
+
 	double travelTime = difftime(exitTime, TimeUtils::String2Time(confirmation.getDateTime(), TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
+
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), tollBoothNumber, travelTime);
 
 	// TODO: algorithm for receiptNumber
@@ -127,7 +125,32 @@ void WWExit::exit()
 	programExit = true;
 }
 
-bool WWExit::validateSelection(std::istream &stream, int selection)
+bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, int number)
 {
-	return !stream.fail() && selection >= 0 && selection < options.size();
+	if (str.fail() || number < botLimit || number > topLimit)
+	{
+		str.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skips 
+		return false;
+	}
+	return true;
 }
+
+void WWExit::inputTollBoothNumber()
+{
+	bool isValid = true;
+	do
+	{
+		std::cout << "Unesite broj naplatne kucice: ";
+		std::cin >> tollBoothNumber;
+
+		if (validateSelection(std::cin, 1, tollBoothAmount, tollBoothNumber) == false)
+		{
+			isValid = false;
+			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl;
+		}
+		else { isValid = true; }
+
+	} while (isValid == false);
+}
+
