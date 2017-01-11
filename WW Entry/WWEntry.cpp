@@ -2,7 +2,7 @@
 #include "../common/Login.h"
 #include "../common/UserManager.h"
 #include "../common/Console.h"
-#include "EntryCard.h"
+#include "../common/EntryCard.h"
 #include "TimeUtils.h"
 #include <iostream>
 #include <cstddef>
@@ -12,18 +12,22 @@ const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
 
 WWEntry::WWEntry():programExit(false)
 {
+
     initOptions();
+
 }
 
 
 void WWEntry::run()
 {
+
 	Login::tryLogin();
 
     Console::clear();
 
     while (!programExit)
     {
+
         int selection;
 
         printOptions();
@@ -48,21 +52,27 @@ void WWEntry::run()
         Console::clear();
         options[selection - 1].second();
         Console::clear();
+
     }
+
 }
 
 void WWEntry::initOptions()
 {
+
     options =
     {
+
         {"Izdavanje nove potvrde",std::bind(&WWEntry::generateEntryCard,this)},
         {"Izlaz",std::bind(&WWEntry::exit,this)}
+
 	};
+
 }
 
 void WWEntry::generateEntryCard()
 {
-	/*
+
     std::cout << "Registarske tablice: ";
 	std::string licensePlate;
     std::cin >> licensePlate;
@@ -70,40 +80,57 @@ void WWEntry::generateEntryCard()
     std::string vehicleCategory = inputCategory();
 
 	int entryNode;
-	std::cout << 
+	std::cout << "Ulazni cvor: ";
 	std::cin >> entryNode;
+
+	//TODO: Validate entryNode
 
 	std::time_t time = std::time(NULL);
 	std::string dateTime = TimeUtils::Time2String(time, TIME_FORMAT);
 
 	EntryCard confirmation(licensePlate, vehicleCategory, dateTime, entryNode);
-	*/
+
+	confirmation.writeToFile();
+
+
 }
 
 void WWEntry::exit()
 {
+
     programExit = true;
+
 }
 
 void WWEntry::printOptions()
 {
+
     for(std::size_t index = 0; index < options.size(); ++index)
 	{
+
         std::cout << index + 1 << ". " << options[index].first << "\n";
+
     }
+
 }
 
 bool WWEntry::validateSelection(std::istream &stream,int selection)
 {
+
     --selection;
-    return !stream.fail() && selection >= 0 && selection < options.size();
+    // Casts to silence g++
+    return !stream.fail() && static_cast<std::size_t>(selection) >= 0 &&
+    static_cast<std::size_t>(selection) < options.size();
+
 }
 
 // TODO: check category valid
 std::string WWEntry::inputCategory()
 {
+
 	std::cout << "Kategorija vozila: ";
 	std::string vehicleCategory;
 	std::cin >> vehicleCategory;
 	return vehicleCategory;
+
 }

@@ -9,7 +9,7 @@
 #elif defined(_WIN32)
 #include <windows.h>
 #endif
-   
+
 
 namespace
 {
@@ -35,11 +35,7 @@ namespace
 		SetConsoleMode(hStdin, mode);
         #endif
     }
-}
 
-
-namespace Login
-{
     std::pair <std::string, std::string> promptUser()
     {
         std::string username, password;
@@ -52,21 +48,27 @@ namespace Login
 
         std::getline(std::cin, password);
         setEcho(true);
-		#if defined(_WIN32)
-		std::cout << std::endl; // HACK: because '\n' gets hidden as well
-		#endif
+
+		std::cout << std::endl;
 
 		return std::make_pair(username, password);
     }
 
+}
+
+
+namespace Login
+{
+
 	void tryLogin()
 	{
+
 		UserManager userManager;
 		bool loggedIn;
 
 		do
 		{
-			auto credentials = Login::promptUser();
+			auto credentials = promptUser();
 			loggedIn = userManager.login(credentials.first, credentials.second);
 
 			if (!loggedIn)
@@ -75,6 +77,7 @@ namespace Login
 
 		std::cout << "Uspjesno logovanje na sistem." << std::endl << std::endl;
 	}
+
 }
 
 

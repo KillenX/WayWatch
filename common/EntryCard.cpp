@@ -48,6 +48,29 @@ void EntryCard::printEntryCard(std::ostream &str)
 		<< "========================== ================== ===============" << std::endl;
 }
 
+void EntryCard::writeToFile()
+{
+
+    std::string filename = generateFilename(licensePlate);
+
+    std::ofstream file(filename);
+
+    if(!file.is_open())
+        throw std::runtime_error("Could not open file: " + filename);
+
+    printEntryCardHeader(file);
+    printEntryCard(file);
+
+}
+
+std::string EntryCard::generateFilename(const std::string &licensePlateID)
+{
+
+    return std::string("../data/Confirmations/") + std::string("Confirmation") + licensePlateID + ".txt";
+
+}
+
+
 int EntryCard::getEntryTollbooth() const { return entryTollbooth; }
 
 std::string EntryCard::getVehicleCategory() const { return vehicleCategory; }
