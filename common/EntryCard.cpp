@@ -16,11 +16,7 @@ void EntryCard::readEntryCard(const std::string fileName)
 {
 	std::ifstream file(fileName);
 
-	std::string header;
-
-	file >> header >> header >> header  //Skips the header from a file
-		>> header >> header >> header >> header >> header >> header >> header >> header >> header
-		>> header >> header >> header;
+	file.ignore(100,'\n'); file.ignore(100,'\n'); file.ignore(100,'\n'); //Skips header
 
 	std::string date;
 	std::string time;

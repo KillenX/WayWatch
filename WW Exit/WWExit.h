@@ -18,7 +18,8 @@ private:
 	std::vector <Option> options;
 	GraphHighway graphHighway;
 
-	bool validateSelection(std::istream &str, int selection);
+	bool validateSelection(std::istream &str, int botLimit, int topLimit, int number);
+	void inputTollBoothNumber();
 
 	void printOptions() const;
 	void initOptions();
