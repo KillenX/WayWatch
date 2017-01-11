@@ -130,7 +130,7 @@ bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, in
 	if (str.fail() || number < botLimit || number > topLimit)
 	{
 		str.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skips 
+		str.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skips 
 		return false;
 	}
 	return true;
