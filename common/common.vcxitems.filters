@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EntryCard.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Console.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CsvParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Login.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UserManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EntryCard.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Console.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CsvParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)debug.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Login.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TimeUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UserManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="utils">
+      <UniqueIdentifier>{b05a600e-171d-4563-a520-ce1ff8acb4d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
