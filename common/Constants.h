@@ -17,7 +17,7 @@ namespace WayWatch
 		static const std::string EXT_TICKET = ".txt";
 
 		// file locations
-		static const std::string FILE_EDGE_DATA = DIR_DATA + "EdgeData.csv";
+		static const std::string FILE_GRAPH_DATA = DIR_DATA + "graph_data.csv";
 		static const std::string FILE_DATABASE = DIR_DATA + "database.txt";
 
 		// string formats

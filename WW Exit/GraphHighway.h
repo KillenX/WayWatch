@@ -22,7 +22,7 @@ public:
 private:
 	struct Edge
 	{
-		bool doesExist = false;// are nodes directly connected (without passing through other nodes)
+		bool doesExist = false;
 		int speedLimit = 0;	// speed limit between 2 connected nodes [km/h]
 		double distanceDirect = 0.0; // direct travel distance between 2 connected nodes [km]
 		double distanceShortest = 0.0;	// used in Floyd, minimum possible travel distance between 2 nodes [km]
@@ -33,8 +33,8 @@ private:
 	int numNodes;	
 	Matrix<Edge> adjMatrix; // symmetrical matrix
 	std::vector<std::string> vehicleCategories;
-	void loadAdjMatrix();
-	void loadEdgeData();
+	void loadGraphData();
+	void loadEdgeData(CsvParser &csvParser);
 	void floyd(); // Floyd algorithm, sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
 };
 
