@@ -4,8 +4,6 @@
 #include "../common/CsvParser.h"
 #include <map>
 
-extern struct Edge;
-
 class GraphHighway
 {
 public:

@@ -5,6 +5,7 @@
 #include "../common/Console.h"
 #include "../common/EntryCard.h"
 #include "../common/TimeUtils.h"
+#include "../common/Validation.h"
 #include <iostream>
 #include <cstddef>
 #include <ctime>
@@ -76,7 +77,12 @@ void WWEntry::generateEntryCard()
 	std::string licensePlate;
     std::cin >> licensePlate;
 
-    std::string vehicleCategory = inputCategory();
+	std::string vehicleCategory;
+	do
+	{
+		std::cout << "Kategorija vozila: ";
+		std::cin >> vehicleCategory;	
+	} while (!Validation::isValidCategory(vehicleCategory));
 
 	int entryNode;
 	std::cout << "Ulazni cvor: ";
@@ -120,16 +126,5 @@ bool WWEntry::validateSelection(std::istream &stream,int selection)
     // Casts to silence g++
     return !stream.fail() && static_cast<std::size_t>(selection) >= 0 &&
     static_cast<std::size_t>(selection) < options.size();
-
-}
-
-// TODO: check category valid
-std::string WWEntry::inputCategory()
-{
-
-	std::cout << "Kategorija vozila: ";
-	std::string vehicleCategory;
-	std::cin >> vehicleCategory;
-	return vehicleCategory;
 
 }
