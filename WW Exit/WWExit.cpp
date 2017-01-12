@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <sstream>
 
+static const int PENALTY = 100;
+
 WWExit::WWExit() : programExit(false), graphHighway()
 {
 	initOptions();
@@ -64,7 +66,7 @@ void WWExit::tollPayment()
 	std::string exitTimeString = TimeUtils::time2String(exitTime, TIME_FORMAT);
 
 	EntryCard confirmation;
-	confirmation.readEntryCard("../data/Confirmations/" + std::string("Confirmation") + licensePlate + ".txt");
+	confirmation.readEntryCard(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD);
 
 	// calculate toll and do speed control
 
@@ -95,7 +97,7 @@ void WWExit::tollPayment()
 	// TODO: make option selection a loop until right choice is made
 	if (choice == 1)
 	{
-		std::string fileName = std::string("../data/Receipts/Receipt") + confirmation.getLicensePlate() + ".txt";
+		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
 		std::ofstream file(fileName, std::fstream::app);
 		receipt.printReceiptHeader(file);
 		receipt.printReceipt(file);
@@ -104,9 +106,9 @@ void WWExit::tollPayment()
 
 		if (hasViolated)
 		{
-			Ticket t(exitTimeString, licensePlate, 100);
+			Ticket t(exitTimeString, licensePlate, PENALTY);
 
-			std::string fileName = std::string("Tickets/Ticket") + licensePlate;
+			std::string fileName = std::string(DIR_TICKETS + PREFIX_TICKET + licensePlate + EXT_TICKET);
 
 			std::ofstream file(fileName, std::fstream::app);
 			t.printTicketHeader(file);

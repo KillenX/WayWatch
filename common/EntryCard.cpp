@@ -17,7 +17,7 @@ void EntryCard::readEntryCard(const std::string fileName)
 {
 	std::ifstream file(fileName);
 
-	file.ignore(100,'\n'); file.ignore(100,'\n'); file.ignore(100,'\n'); //Skips header
+	file.ignore(100,'\n'); file.ignore(100,'\n'); file.ignore(100,'\n'); // Skips header
 
 	std::string date;
 	std::string time;
@@ -66,7 +66,7 @@ void EntryCard::writeToFile()
 
 std::string EntryCard::generateFilename(const std::string &licensePlateID)
 {
-    return std::string(DIR_ENTRY_CARDS) + licensePlateID + EXT_ENTRY_CARD;
+    return std::string(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlateID + EXT_ENTRY_CARD);
 }
 
 

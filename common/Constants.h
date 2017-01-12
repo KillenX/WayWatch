@@ -7,6 +7,11 @@ static const std::string DIR_ENTRY_CARDS = DIR_DATA + "entry cards/";
 static const std::string DIR_RECEIPTS = DIR_DATA + "receipts/";
 static const std::string DIR_TICKETS = DIR_DATA + "tickets/";
 
+// file naming
+static const std::string PREFIX_ENTRY_CARD = "EntryCard";
+static const std::string PREFIX_RECEIPT = "Receipt";
+static const std::string PREFIX_TICKET = "Ticket";
+
 // extensions
 static const std::string EXT_ENTRY_CARD = ".txt";
 static const std::string EXT_RECEIPT = ".txt";
