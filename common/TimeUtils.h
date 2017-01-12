@@ -2,10 +2,14 @@
 #include <string>
 #include <ctime>
 
-const std::string TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
-
 namespace TimeUtils
 {
-	std::string Time2String(const std::time_t &time, const std::string &formatString);
-	std::time_t String2Time(const std::string &string, const std::string &formatString);
+	static const size_t TIME_STRING_MAX_LENGTH = 32;
+
+	// TODO: Variable max length output?
+	// Returns string with max length being TIME_STRING_MAX_LENGTH.
+	std::string time2String(const std::time_t &time, const std::string &formatString);
+
+	// Returns time from string containing formatted time (formatString being the format used).
+	std::time_t string2Time(const std::string &string, const std::string &formatString);
 }

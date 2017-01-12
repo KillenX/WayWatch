@@ -5,8 +5,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Console.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CsvParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Login.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UserManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)EntryCard.h" />
@@ -16,11 +16,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Login.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TimeUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UserManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Global.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="utils">
-      <UniqueIdentifier>{b05a600e-171d-4563-a520-ce1ff8acb4d5}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
   </ItemGroup>
 </Project>
