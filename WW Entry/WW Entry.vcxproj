@@ -109,11 +109,10 @@
       </Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>rmdir /Q /S "$(TargetDir)data\"
-xcopy "$(SolutionDir)data\*.*" "$(TargetDir)data\" /Y /E</Command>
+      <Command>xcopy "$(SolutionDir)data\*.*" "$(TargetDir)data\" /Y /E</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Message>Remove old "data" directory from build and copy current one. This executes if "Outputs" is not found, hence we use this hack to make it execute every time.</Message>
+      <Message>Copy data dir. This executes if "Outputs" is not found, hence we use this hack to make it execute every time.</Message>
       <Outputs>(SolutionDir)NON_EXISTING_FILE</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
@@ -153,11 +152,10 @@ xcopy "$(SolutionDir)data\*.*" "$(TargetDir)data\" /Y /E</Command>
       </Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>rmdir /Q /S "$(TargetDir)data\"
-xcopy "$(SolutionDir)data\*.*" "$(TargetDir)data\" /Y /E</Command>
+      <Command>xcopy "$(SolutionDir)data\*.*" "$(TargetDir)data\" /Y /E</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Message>Remove old "data" directory from build and copy current one. This executes if "Outputs" is not found, hence we use this hack to make it execute every time.</Message>
+      <Message>Copy data dir. This executes if "Outputs" is not found, hence we use this hack to make it execute every time.</Message>
       <Outputs>(SolutionDir)NON_EXISTING_FILE</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
