@@ -4,6 +4,8 @@
 #include "../common/CsvParser.h"
 #include <map>
 
+extern struct Edge;
+
 class GraphHighway
 {
 public:
@@ -29,12 +31,7 @@ private:
 		double minTravelTime = 0.0;	// used in Floyd, minimum possible minimumTravelTime sum between 2 nodes [min]
 		std::map<std::string, double> tolls; // // toll sums between 2 nodes (based on shortest distance path) [currency]
 	};
-
-	int numNodes;	
+	int numNodes;
 	Matrix<Edge> adjMatrix; // symmetrical matrix
-	std::vector<std::string> vehicleCategories;
-	void loadGraphData();
-	void loadEdgeData(CsvParser &csvParser);
-	void floyd(); // Floyd algorithm, sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
+	void floyd(); // Sets distanceShortest, minTravelTime and toll values for all edges in adjMatrix
 };
-

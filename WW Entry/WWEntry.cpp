@@ -9,8 +9,6 @@
 #include <cstddef>
 #include <ctime>
 
-using namespace WayWatch::Constants;
-
 WWEntry::WWEntry():programExit(false)
 {
 

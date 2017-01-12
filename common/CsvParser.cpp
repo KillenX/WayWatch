@@ -1,10 +1,9 @@
 #include "CsvParser.h"
-#include <limits>
 #include <iostream>
 
-CsvParser::CsvParser() {}
-
 static const auto MAX_STREAM_SIZE = std::numeric_limits<std::streamsize>::max();
+
+CsvParser::CsvParser() {}
 
 void CsvParser::open(const std::string& FileLocation)
 {

@@ -2,20 +2,41 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)EntryCard.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Console.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CsvParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Login.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UserManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Console.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CsvParser.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Validation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)EntryCard.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Console.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CsvParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)debug.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Login.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TimeUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UserManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Console.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CsvParser.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TimeUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Validation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Properties.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{824d0434-6987-4760-9293-5f0c378a125a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

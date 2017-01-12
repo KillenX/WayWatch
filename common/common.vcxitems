@@ -16,10 +16,12 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Console.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CsvParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Properties.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EntryCard.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Login.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TimeUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UserManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Validation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Console.h" />
@@ -28,7 +30,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EntryCard.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Login.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Properties.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TimeUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UserManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Validation.h" />
   </ItemGroup>
 </Project>

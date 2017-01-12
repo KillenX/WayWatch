@@ -10,8 +10,6 @@
 #include <iomanip>
 #include <sstream>
 
-using namespace WayWatch::Constants;
-
 WWExit::WWExit() : programExit(false), graphHighway()
 {
 	initOptions();

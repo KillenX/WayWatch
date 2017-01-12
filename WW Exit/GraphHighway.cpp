@@ -1,49 +1,68 @@
 #include "GraphHighway.h"
 #include "../common/Constants.h"
+#include "../common/Properties.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
 
-using namespace WayWatch::Constants;
-
-// TODO: Modularity, input-checking, comments, remove usage of FILE_ADJ_MATRIX
-
-GraphHighway::GraphHighway() 
+GraphHighway::GraphHighway()
 {
-	loadGraphData();
-	floyd();
-}
-
-// TODO: Input-check
-void GraphHighway::loadGraphData()
-{
+	numNodes = Properties::getNumNodes();
+	adjMatrix.resize(numNodes, std::vector<Edge>(numNodes));
 	CsvParser csvParser;
 	csvParser.open(FILE_GRAPH_DATA);
 
-	// First cell MUST contain number of nodes.
-	csvParser >> numNodes;
-	adjMatrix.resize(numNodes, std::vector<Edge>(numNodes));
+	// skip first two lines
+	csvParser.goNextLine(2); 
 
-	// Rest of row is garbage. Next row is header.
-	csvParser.goNextLine();
-	
-	// Skip 4 columns to get to categories.
-	csvParser.goNextCol(4);
-
-	// Load vehicle categories.
-	while (!csvParser.currentLineEnded())
+	while (!csvParser.reachedEOF())
 	{
-		std::string vCategory;
-		csvParser >> vCategory;
-		vehicleCategories.push_back(vCategory);
+		int nodeA, nodeB;
+
+		csvParser >> nodeA;
 		csvParser.goNextCol();
+		csvParser >> nodeB;
+
+		// Can't have self-loops.
+		if (nodeA == nodeB)
+		{
+			csvParser.goNextLine();
+			return;
+		}
+
+		// Zero indexing.
+		int i = nodeA - 1;
+		int j = nodeB - 1;
+
+		Edge &edge = adjMatrix.at(i).at(j);
+
+		edge.doesExist = true;
+		csvParser.goNextCol();
+		csvParser >> edge.distanceDirect;
+		csvParser.goNextCol();
+		csvParser >> edge.speedLimit;
+		csvParser.goNextCol();
+
+		for (const std::string &category : Properties::getVehicleCategories())
+		{
+			double price;
+			csvParser >> price;
+			edge.tolls.emplace(category, price);
+			csvParser.goNextCol();
+		}
+
+		edge.distanceShortest = edge.distanceDirect;
+		edge.minTravelTime = 60 * edge.distanceDirect / edge.speedLimit; // [1h = 60min]
+
+		// Set it's symmetryic counterpart element
+		adjMatrix.at(j).at(i) = edge;
+
+		csvParser.goNextLine();
 	}
 
-	csvParser.goNextLine();
-	while (!csvParser.reachedEOF())
-		loadEdgeData(csvParser);
 	csvParser.close();
+	floyd();
 }
 
 void GraphHighway::floyd()
@@ -55,7 +74,7 @@ void GraphHighway::floyd()
 			Edge &edge = adjMatrix.at(i).at(j);
 			if (!edge.doesExist)
 			{
-				for (const std::string &category : vehicleCategories)
+				for (const std::string &category : Properties::getVehicleCategories())
 					edge.tolls.emplace(category, 0.0);
 				edge.distanceShortest = edge.minTravelTime = (i == j) ? 0 : INFINITY;
 			}
@@ -75,55 +94,10 @@ void GraphHighway::floyd()
 				if (ij.distanceShortest > ik.distanceShortest + kj.distanceShortest)
 				{
 					ij.distanceShortest = ik.distanceShortest + kj.distanceShortest;
-					for (const std::string &category : vehicleCategories)
+					for (const std::string &category : Properties::getVehicleCategories())
 						ij.tolls.at(category) = ik.tolls.at(category) + kj.tolls.at(category);
 				}
 			}
-}
-
-void GraphHighway::loadEdgeData(CsvParser &csvParser)
-{
-	int nodeA, nodeB;
-
-	csvParser >> nodeA;
-	csvParser.goNextCol();
-	csvParser >> nodeB;
-
-	// Can't have self-loops.
-	if (nodeA == nodeB)
-	{
-		csvParser.goNextLine();
-		return;
-	}
-
-	// Zero indexing.
-	int i = nodeA - 1;
-	int j = nodeB - 1;
-
-	Edge &edge = adjMatrix.at(i).at(j);
-
-	edge.doesExist = true;
-	csvParser.goNextCol();
-	csvParser >> edge.distanceDirect;
-	csvParser.goNextCol();
-	csvParser >> edge.speedLimit;
-	csvParser.goNextCol();
-
-	for (const std::string &category : vehicleCategories)
-	{
-		double price;
-		csvParser >> price;
-		edge.tolls.emplace(category, price);
-		csvParser.goNextCol();
-	}
-
-	edge.distanceShortest = edge.distanceDirect;
-	edge.minTravelTime = 60 * edge.distanceDirect / edge.speedLimit; // [1h = 60min]
-
-	// Set it's symmetryic counterpart element
-	adjMatrix.at(j).at(i) = edge;
-
-	csvParser.goNextLine();
 }
 
 int GraphHighway::getNumNodes()
@@ -134,12 +108,13 @@ int GraphHighway::getNumNodes()
 bool GraphHighway::isConnected(const int startNode, const int endNode) const
 {
 	const Edge &edge = adjMatrix.at(startNode - 1).at(endNode - 1);
+
 	if (edge.doesExist)
 		return true;
 
 	if ((edge.distanceShortest == INFINITY) || (edge.distanceShortest == 0.0))
 		return false;
-	
+
 	return true;
 }
 
@@ -159,7 +134,7 @@ bool GraphHighway::hasViolatedSpeedLimit(const int startNode, const int endNode,
 // FOR DEBUGGING PURPOSES, REMOVE IN PRODUCTION?
 // **********************************************
 void GraphHighway::draw() const
-{ 
+{
 	static const int FILL_WIDTH = 5;
 	static const int PADDING_LEFT = 4;
 
@@ -200,7 +175,7 @@ void GraphHighway::draw() const
 
 			// set padding
 			std::cout << std::setw(FILL_WIDTH - 1);
-			
+
 			// write out element
 			const Edge &currNode = adjMatrix.at(i).at(j);
 			if (currNode.minTravelTime != 0.0)
