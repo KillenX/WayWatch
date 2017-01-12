@@ -74,3 +74,12 @@
 /data/Confirmations/Confirmation1337.txt
 /data/Receipts/Receipt1337.txt
 /Debug
+/build/Debug
+*.sdf
+*.tlog
+*.obj
+*.idb
+*.pdb
+/WW Exit/Debug
+/WW Entry/Debug
+*.suo
