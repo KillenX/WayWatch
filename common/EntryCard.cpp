@@ -1,4 +1,5 @@
 #include "EntryCard.h"
+#include "Constants.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -65,9 +66,7 @@ void EntryCard::writeToFile()
 
 std::string EntryCard::generateFilename(const std::string &licensePlateID)
 {
-
-    return std::string("../data/Confirmations/") + std::string("Confirmation") + licensePlateID + ".txt";
-
+    return std::string(DIR_ENTRY_CARDS) + licensePlateID + EXT_ENTRY_CARD;
 }
 
 
