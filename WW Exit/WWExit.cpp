@@ -4,10 +4,13 @@
 #include "../common/UserManager.h"
 #include "../common/EntryCard.h"
 #include "../common/TimeUtils.h"
+#include "../common/Constants.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
+
+using namespace WayWatch::Constants;
 
 WWExit::WWExit() : programExit(false), graphHighway()
 {
@@ -60,7 +63,7 @@ void WWExit::tollPayment()
 	std::cin >> licensePlate;
 
 	std::time_t exitTime = std::time(NULL);
-	std::string exitTimeString = TimeUtils::Time2String(exitTime, TIME_FORMAT);
+	std::string exitTimeString = TimeUtils::time2String(exitTime, TIME_FORMAT);
 
 	EntryCard confirmation;
 	confirmation.readEntryCard("../data/Confirmations/" + std::string("Confirmation") + licensePlate + ".txt");
@@ -69,7 +72,7 @@ void WWExit::tollPayment()
 
 	double toll = graphHighway.getToll(confirmation.getEntryTollbooth(), tollBoothNumber, confirmation.getVehicleCategory());
 
-	double travelTime = difftime(exitTime, TimeUtils::String2Time(confirmation.getDateTime(), TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
+	double travelTime = difftime(exitTime, TimeUtils::string2Time(confirmation.getDateTime(), TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
 
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), tollBoothNumber, travelTime);
 

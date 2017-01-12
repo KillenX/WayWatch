@@ -1,3 +1,0 @@
-- Use camelCase for functions and variables
-- Use PascalCase for user defined types ( class, enum etc.)
-- Use spacing around binary operators

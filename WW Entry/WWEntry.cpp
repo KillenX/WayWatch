@@ -1,14 +1,15 @@
 #include "WWEntry.h"
+#include "../common/Constants.h"
 #include "../common/Login.h"
 #include "../common/UserManager.h"
 #include "../common/Console.h"
 #include "../common/EntryCard.h"
-#include "TimeUtils.h"
+#include "../common/TimeUtils.h"
 #include <iostream>
 #include <cstddef>
 #include <ctime>
 
-const char* TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
+using namespace WayWatch::Constants;
 
 WWEntry::WWEntry():programExit(false)
 {
@@ -86,7 +87,7 @@ void WWEntry::generateEntryCard()
 	//TODO: Validate entryNode
 
 	std::time_t time = std::time(NULL);
-	std::string dateTime = TimeUtils::Time2String(time, TIME_FORMAT);
+	std::string dateTime = TimeUtils::time2String(time, TIME_FORMAT);
 
 	EntryCard confirmation(licensePlate, vehicleCategory, dateTime, entryNode);
 

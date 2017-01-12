@@ -1,13 +1,14 @@
+#include "GraphHighway.h"
+#include "../common/Constants.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
-#include "GraphHighway.h"
 
-// TODO: make code more modular
-// TODO: implement illegal input checking
-// TODO: rewrite comments
-// TODO: if EdgeData doesn't contain all edges make it ERROR, bad results otherwise
+using namespace WayWatch::Constants;
+
+// TODO: Modularity, input-checking, comments, remove usage of FILE_ADJ_MATRIX
+static const std::string FILE_ADJ_MATRIX = DIR_DATA + "AdjMatrix.csv";
 
 GraphHighway::GraphHighway() 
 {
@@ -23,6 +24,8 @@ void GraphHighway::loadAdjMatrix()
 
 	// load first line (contains node amount)
 	csvParser >> numNodes;
+
+	std::cout << numNodes;
 
 	// skip rest of row after numNodes is read
 	csvParser.goNextLine();
@@ -68,7 +71,6 @@ void GraphHighway::loadEdgeData()
 	csvParser.goNextCol(4); // skip unecessary header part
 	
 	// Load vehicle categories
-
 	while (!csvParser.currentLineEnded())
 	{
 		std::string temp;

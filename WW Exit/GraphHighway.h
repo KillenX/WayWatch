@@ -4,9 +4,6 @@
 #include "../common/CsvParser.h"
 #include <map>
 
-constexpr char *FILE_ADJ_MATRIX = "./data/AdjMatrix.csv";
-constexpr char *FILE_EDGE_DATA = "./data/EdgeData.csv";
-
 class GraphHighway
 {
 public:

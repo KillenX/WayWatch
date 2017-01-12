@@ -54,6 +54,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
+    <Import Project="..\common\common.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -68,7 +69,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -112,12 +118,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\Console.cpp" />
-    <ClCompile Include="..\common\CsvParser.cpp" />
-    <ClCompile Include="..\common\EntryCard.cpp" />
-    <ClCompile Include="..\common\Login.cpp" />
-    <ClCompile Include="..\common\TimeUtils.cpp" />
-    <ClCompile Include="..\common\UserManager.cpp" />
     <ClCompile Include="GraphHighway.cpp" />
     <ClCompile Include="Receipt.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -125,26 +125,11 @@
     <ClCompile Include="WWExit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\Console.h" />
-    <ClInclude Include="..\common\CsvParser.h" />
-    <ClInclude Include="..\common\debug.h" />
-    <ClInclude Include="..\common\EntryCard.h" />
-    <ClInclude Include="..\common\Login.h" />
-    <ClInclude Include="..\common\TimeUtils.h" />
-    <ClInclude Include="..\common\UserManager.h" />
     <ClInclude Include="GraphHighway.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Receipt.h" />
     <ClInclude Include="Ticket.h" />
     <ClInclude Include="WWExit.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Database.txt" />
-    <Text Include="data\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data\AdjMatrix.csv" />
-    <None Include="data\EdgeData.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
