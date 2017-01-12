@@ -1,9 +1,10 @@
 #include "UserManager.h"
+#include "Constants.h"
 #include <fstream>
 #include <stdexcept>
 #include <sstream>
 
-const std::string UserManager::database = "../data/database.txt";
+const std::string UserManager::database = FILE_DATABASE;
 bool UserManager::initialized = false;
 
 
