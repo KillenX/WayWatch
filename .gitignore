@@ -84,3 +84,5 @@
 /WW Entry/Debug
 *.suo
 *.opensdf
+/WayWatch.VC.db
+/WayWatch.VC.VC.opendb
