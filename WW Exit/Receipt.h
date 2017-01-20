@@ -11,12 +11,10 @@ private:
 	std::string vehicleCategory;
 	double price;
 	bool hasViolated;
-	int receiptNumber;	
 public:
-	Receipt(std::string entryDate, int entryNode, 
-		std::string exitDate, int exitNode, 
-		std::string vCategory, double price, bool hasViolated, 
-		int receiptNumber);
+	Receipt(std::string entryDate, int entryNode,
+		std::string exitDate, int exitNode,
+		std::string vCategory, double price, bool hasViolated);
 	void printReceiptHeader(std::ostream &str);
 	void printReceipt(std::ostream &str);
 };

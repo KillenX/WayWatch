@@ -82,13 +82,9 @@ void WWExit::tollPayment()
 
 	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), tollBoothNumber, travelTime);
 
-	// TODO: algorithm for receiptNumber
-	int receiptNumber = 1;
-
 	Receipt receipt(confirmation.getDateTime(), confirmation.getEntryTollbooth(),
 		exitTimeString, tollBoothNumber,
-		confirmation.getVehicleCategory(), toll, hasViolated,
-		receiptNumber);
+		confirmation.getVehicleCategory(), toll, hasViolated);
 
 	receipt.printReceipt(std::cout);
 

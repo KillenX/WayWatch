@@ -1,18 +1,16 @@
 #include "Receipt.h"
 #include <iomanip>
 
-Receipt::Receipt(std::string entryDate, int entryNode, 
-	std::string exitDate, int exitNode, 
-	std::string vCategory, double price, bool hasViolated,
-	int receiptNumber)
+Receipt::Receipt(std::string entryDate, int entryNode,
+	std::string exitDate, int exitNode,
+	std::string vCategory, double price, bool hasViolated)
 	: entryDateTime(entryDate)
 	, entryNode(entryNode)
 	, exitDateTime(exitDate)
 	, exitNode(exitNode)
 	, vehicleCategory(vCategory)
 	, price(price)
-	, hasViolated(hasViolated)
-	, receiptNumber(receiptNumber) {}
+	, hasViolated(hasViolated) {}
 
 void Receipt::printReceiptHeader(std::ostream &str)
 {
@@ -28,7 +26,6 @@ void Receipt::printReceipt(std::ostream &str)
 		<< std::setw(22) << std::left << "Exit node:" << exitNode << std::endl
 		<< std::setw(22) << std::left << "Exit date and time:" << exitDateTime << std::endl
 		<< std::setw(22) << std::left << "Vehicle category:" << vehicleCategory << std::endl
-		<< std::setw(22) << std::left << "Receipt number:" << receiptNumber << std::endl
 		<< std::setw(22) << std::left << "Violation:" << (hasViolated ? "YES" : "NO") << std::endl;
 
 	printReceiptHeader(str);
