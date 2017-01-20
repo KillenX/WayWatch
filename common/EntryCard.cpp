@@ -5,8 +5,9 @@
 #include <fstream>
 #include <ctime>
 #include <iomanip>
+#include <stdexcept>
 
-EntryCard::EntryCard(const std::string licensePlate, const std::string vehicleCategory, const std::string dateTime, const int entryTollbooth)
+EntryCard::EntryCard(const std::string &licensePlate, const std::string &vehicleCategory, const std::string &dateTime, const int entryTollbooth)
 	: vehicleCategory(vehicleCategory),
 	licensePlate(licensePlate),
 	entryTollbooth(entryTollbooth),
@@ -16,7 +17,7 @@ EntryCard::EntryCard(const std::string licensePlate, const std::string vehicleCa
 bool EntryCard::readEntryCard(const std::string fileName)
 {
 	std::ifstream file(fileName);
-	
+
 	if (file.is_open() == false) return false; //if Entry Card hasn't been found
 
 	std::string date;
@@ -28,7 +29,7 @@ bool EntryCard::readEntryCard(const std::string fileName)
 	file >> entryTollbooth;
 
 	file.ignore(100, ':'); //skips "Date and Time:"
-	
+
 	file >> date;
 	file >> time;
 
@@ -61,7 +62,7 @@ void EntryCard::printEntryCard(std::ostream &str)
 void EntryCard::writeToFile()
 {
 
-    std::string filename = generateFilename(licensePlate);
+    std::string filename = generateFilename();
 
     std::ofstream file(filename);
 
@@ -73,9 +74,11 @@ void EntryCard::writeToFile()
 
 }
 
-std::string EntryCard::generateFilename(const std::string &licensePlateID)
+std::string EntryCard::generateFilename()
 {
-    return std::string(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlateID + EXT_ENTRY_CARD);
+
+    return std::string(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD);
+
 }
 
 
