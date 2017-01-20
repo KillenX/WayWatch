@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <sstream>
 #include <limits>
+#include <cstring>
 
 namespace TimeUtils
 {

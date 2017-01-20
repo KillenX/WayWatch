@@ -1,5 +1,6 @@
 #include "CsvParser.h"
 #include <iostream>
+#include <limits>
 
 static const auto MAX_STREAM_SIZE = std::numeric_limits<std::streamsize>::max();
 
