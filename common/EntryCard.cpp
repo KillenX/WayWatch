@@ -28,7 +28,7 @@ bool EntryCard::readEntryCard(const std::string fileName)
 	file >> entryTollbooth;
 
 	file.ignore(100, ':'); //skips "Date and Time:"
-
+	
 	file >> date;
 	file >> time;
 
