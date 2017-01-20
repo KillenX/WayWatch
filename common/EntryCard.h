@@ -5,8 +5,11 @@
 
 class EntryCard
 {
+
 public:
-	EntryCard(const std::string = "", const std::string = "", const std::string = "", const int = -1);
+
+	EntryCard(const std::string &licensePlate = "", const std::string &vehicleCategory = "",
+           const std::string &dateTime = "", const int entryTollbooth = -1);
 
 	bool readEntryCard(const std::string);
 
@@ -17,10 +20,11 @@ public:
 	std::string getDateTime() const;
 	std::string getLicensePlate() const;
 
-	static std::string generateFilename(const std::string &licensePlateID);
+
 
 private:
 
+    std::string generateFilename();
     void printEntryCardHeader(std::ostream &str);
 	void printEntryCard(std::ostream &str);
 
