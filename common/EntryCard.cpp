@@ -7,10 +7,10 @@
 #include <iomanip>
 
 EntryCard::EntryCard(const std::string licensePlate, const std::string vehicleCategory, const std::string dateTime, const int entryTollbooth)
-	: licensePlate(licensePlate),
-	vehicleCategory(vehicleCategory),
-	dateTime(dateTime),
-	entryTollbooth(entryTollbooth) {}
+	: vehicleCategory(vehicleCategory),
+	licensePlate(licensePlate),
+	entryTollbooth(entryTollbooth),
+	dateTime(dateTime){}
 
 
 bool EntryCard::readEntryCard(const std::string fileName)
