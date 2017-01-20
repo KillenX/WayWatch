@@ -2,11 +2,11 @@
 #include "WWExit.h"
 #include "../common/Login.h"
 
-int main()
+void main()
 {
-	//Login::tryLogin();
+	Login::tryLogin();
 
 	WWExit app;
+
 	app.run();
-	return 0;
 }

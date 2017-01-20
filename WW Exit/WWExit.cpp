@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iomanip>
 #include <sstream>
+#include "../common/Console.h"
 
 static const int PENALTY = 100;
 
@@ -21,8 +22,6 @@ void WWExit::run()
 {
 	tollBoothAmount = graphHighway.getNumNodes();
 
-	graphHighway.draw();
-
 	inputTollBoothNumber();
 
 	while (!programExit)
@@ -32,6 +31,7 @@ void WWExit::run()
 		int selection;
 		std::cout << "Izaberite opciju: ";
 		std::cin >> selection;
+		Console::clear();
 
 		if (validateSelection(std::cin, 1, options.size(), selection)) 
 			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
@@ -61,6 +61,7 @@ void WWExit::tollPayment()
 	std::cout << "Registarske tablice: ";
 	std::string licensePlate;
 	std::cin >> licensePlate;
+	Console::clear();
 
 	EntryCard confirmation;
 
@@ -92,11 +93,12 @@ void WWExit::tollPayment()
 	receipt.printReceipt(std::cout);
 
 	int choice;
-	std::cout << "Racun je uspjesno generisan. " << std::endl
-			  << "1 - Izdaj racun" << std::endl
-			  << "2 - Obrisi" << std::endl;
+	std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl
+			  << "1 - Izdaj racun." << std::endl
+			  << "2 - Obrisi." << std::endl;
 
 	std::cin >> choice;
+	Console::clear();
 
 	// TODO: make option selection a loop until right choice is made
 	if (choice == 1)
@@ -142,7 +144,7 @@ bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, in
 
 void WWExit::inputTollBoothNumber()
 {
-	bool isValid = true;
+	bool isValid = true; 
 	do
 	{
 		std::cout << "Unesite broj naplatne kucice: ";
@@ -154,7 +156,7 @@ void WWExit::inputTollBoothNumber()
 			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl;
 		}
 		else { isValid = true; }
-
+		Console::clear();
 	} while (isValid == false);
 }
 
