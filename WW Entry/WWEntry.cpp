@@ -77,18 +77,8 @@ void WWEntry::generateEntryCard()
 	std::string licensePlate;
     std::cin >> licensePlate;
 
-	std::string vehicleCategory;
-	do
-	{
-		std::cout << "Kategorija vozila: ";
-		std::cin >> vehicleCategory;	
-	} while (!Validation::isValidCategory(vehicleCategory));
-
-	int entryNode;
-	std::cout << "Ulazni cvor: ";
-	std::cin >> entryNode;
-
-	//TODO: Validate entryNode
+    std::string vehicleCategory = inputCategory();
+    unsigned int entryNode = inputEntryNode();
 
 	std::time_t time = std::time(NULL);
 	std::string dateTime = TimeUtils::time2String(time, TIME_FORMAT);
@@ -126,5 +116,58 @@ bool WWEntry::validateSelection(std::istream &stream,int selection)
     // Casts to silence g++
     return !stream.fail() && static_cast<std::size_t>(selection) >= 0 &&
     static_cast<std::size_t>(selection) < options.size();
+
+}
+
+
+std::string WWEntry::inputCategory()
+{
+
+    std::string category;
+    bool validCategory;
+
+	do
+	{
+
+		std::cout << "Kategorija vozila: ";
+		std::cin >> category;
+
+		validCategory = Validation::isValidCategory(category);
+
+		if(!validCategory)
+            std::cout << "Nepostojeca kategorija\n";
+
+
+	}
+	while (!validCategory);
+
+
+	return category;
+
+}
+
+
+unsigned int WWEntry::inputEntryNode()
+{
+
+    unsigned int entryNode;
+    bool validNode;
+
+    do
+    {
+
+        std::cout << "Ulazni cvor: ";
+        std::cin >> entryNode;
+
+        validNode = Validation::isValidNode(entryNode);
+
+        if(!validNode)
+            std::cout << "Nepostojeci ulazni cvor";
+
+
+    }
+    while(!validNode);
+
+    return entryNode;
 
 }

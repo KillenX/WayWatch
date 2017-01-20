@@ -8,14 +8,19 @@
 
 class WWEntry
 {
+
 public:
+
     WWEntry();
     WWEntry(const WWEntry &) = delete;
     WWEntry(WWEntry &&) = delete;
     WWEntry &operator=(const WWEntry &) = delete;
     WWEntry &operator=(WWEntry &&) = delete;
     void run();
+
 private:
+
+
 	void initOptions();
     void generateEntryCard();
     void exit();
@@ -24,6 +29,7 @@ private:
 
     //void printHelp(); Implement?
     std::string inputCategory();
+    unsigned int inputEntryNode();
     using OptCallable = std::function <void()>;
     //Pair consisting of option string (eg. "Exit Program"), second is handler for the option
     using Option = std::pair <std::string,OptCallable>;
