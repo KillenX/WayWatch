@@ -1,4 +1,5 @@
 #include "Ticket.h"
+#include <iomanip>
 
 Ticket::Ticket(std::string dateTime, std::string licensePlate, double price)
 	: dateTime(dateTime),
@@ -8,13 +9,18 @@ Ticket::Ticket(std::string dateTime, std::string licensePlate, double price)
 
 void Ticket::printTicketHeader(std::ostream &str)
 {
-	str << "============= =============== =======" << std::endl
+	str << "===================================" << std::endl
 	    << "  DATE TIME    LICENSE PLATE   PRICE"  << std::endl
 		<< "============= =============== =======" << std::endl;
 }
 
 void Ticket::printTicket(std::ostream &str)
 {
-	//TODO: fix formatting
-	str << dateTime << licensePlate << price << std::endl;
+	printTicketHeader(str);
+
+	str << std::setw(20) << std::left << "Date and time: " << dateTime;
+	str << std::setw(20) << std::left << "License plate: " << licensePlate;
+	str << std::setw(20) << std::left << "Price: " << price;
+
+	printTicketHeader(str);
 }

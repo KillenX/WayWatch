@@ -62,11 +62,16 @@ void WWExit::tollPayment()
 	std::string licensePlate;
 	std::cin >> licensePlate;
 
+	EntryCard confirmation;
+
+	if (confirmation.readEntryCard(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD) == false) // if Entry Card hasn't been found
+	{
+		std::cout << "Greska. Potvrda nije pronadjena." << std::endl;
+		return;
+	}
+	
 	std::time_t exitTime = std::time(NULL);
 	std::string exitTimeString = TimeUtils::time2String(exitTime, TIME_FORMAT);
-
-	EntryCard confirmation;
-	confirmation.readEntryCard(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD);
 
 	// calculate toll and do speed control
 
@@ -84,7 +89,6 @@ void WWExit::tollPayment()
 		confirmation.getVehicleCategory(), toll, hasViolated,
 		receiptNumber);
 
-	receipt.printReceiptHeader(std::cout);
 	receipt.printReceipt(std::cout);
 
 	int choice;
@@ -99,7 +103,6 @@ void WWExit::tollPayment()
 	{
 		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
 		std::ofstream file(fileName, std::fstream::app);
-		receipt.printReceiptHeader(file);
 		receipt.printReceipt(file);
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;

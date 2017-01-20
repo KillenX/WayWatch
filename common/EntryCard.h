@@ -8,7 +8,7 @@ class EntryCard
 public:
 	EntryCard(const std::string = "", const std::string = "", const std::string = "", const int = -1);
 
-	void readEntryCard(const std::string);
+	bool readEntryCard(const std::string);
 
 	void writeToFile();
 

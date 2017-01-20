@@ -13,40 +13,49 @@ EntryCard::EntryCard(const std::string licensePlate, const std::string vehicleCa
 	entryTollbooth(entryTollbooth) {}
 
 
-void EntryCard::readEntryCard(const std::string fileName)
+bool EntryCard::readEntryCard(const std::string fileName)
 {
 	std::ifstream file(fileName);
-
-	file.ignore(100,'\n'); file.ignore(100,'\n'); file.ignore(100,'\n'); // Skips header
+	
+	if (file.is_open() == false) return false; //if Entry Card hasn't been found
 
 	std::string date;
 	std::string time;
 
+	file.ignore(100, '\n'); //skips header line "====..."
+	file.ignore(100, ':');  //skips "Entry node:"
+
+	file >> entryTollbooth;
+
+	file.ignore(100, ':'); //skips "Date and Time:"
+
 	file >> date;
 	file >> time;
 
-	dateTime = date + " " + time;
-
-	file >> entryTollbooth;
+	file.ignore(100, ' '); //Skips "Category:"
 	file >> vehicleCategory;
+
+	file.ignore(100, ':'); //Skips "License plate:"
 	file >> licensePlate;
 
+	dateTime = date + " " + time;
 	file.close();
+	return true;
 }
 
 
 void EntryCard::printEntryCardHeader(std::ostream &str)
 {
-	str << "========================== ================== ===============" << std::endl
-		<< " ENTRY DATE TIME / NUMBER   VEHICLE CATEGORY   LICENSE PLATE" << std::endl
-		<< "========================== ================== ===============" << std::endl;
+	str << "========================================" << std::endl;
 }
 
 void EntryCard::printEntryCard(std::ostream &str)
 {
-	//TODO: fix formatting
-	str << dateTime << " " << entryTollbooth << " " << vehicleCategory << " " << licensePlate << std::endl
-		<< "========================== ================== ===============" << std::endl;
+	str << "Entry node: " << entryTollbooth << std::endl
+		<< "Date: " << dateTime << std::endl
+		<< "Category: " << vehicleCategory << std::endl
+		<< "License plate: " << licensePlate << std::endl
+		<< "========================================" << std::endl;
 }
 
 void EntryCard::writeToFile()
