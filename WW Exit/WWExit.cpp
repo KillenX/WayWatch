@@ -112,7 +112,7 @@ void WWExit::tollPayment()
 			std::string fileName = std::string(DIR_TICKETS + PREFIX_TICKET + licensePlate + EXT_TICKET);
 
 			std::ofstream file(fileName, std::fstream::app);
-			t.printTicketHeader(file);
+
 			t.printTicket(file);
 		}
 	}

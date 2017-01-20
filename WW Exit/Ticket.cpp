@@ -9,9 +9,7 @@ Ticket::Ticket(std::string dateTime, std::string licensePlate, double price)
 
 void Ticket::printTicketHeader(std::ostream &str)
 {
-	str << "===================================" << std::endl
-	    << "  DATE TIME    LICENSE PLATE   PRICE"  << std::endl
-		<< "============= =============== =======" << std::endl;
+	str << "===================================" << std::endl;
 }
 
 void Ticket::printTicket(std::ostream &str)
