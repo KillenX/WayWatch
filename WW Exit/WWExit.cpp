@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include "../common/Console.h"
+#include <limits>
 
 static const int PENALTY = 100;
 
@@ -33,7 +34,7 @@ void WWExit::run()
 		std::cin >> selection;
 		Console::clear();
 
-		if (validateSelection(std::cin, 1, options.size(), selection)) 
+		if (validateSelection(std::cin, 1, options.size(), selection))
 			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
 		else
 			std::cout << "Greska. Ta opcija ne postoji." << std::endl;
@@ -70,7 +71,7 @@ void WWExit::tollPayment()
 		std::cout << "Greska. Potvrda nije pronadjena." << std::endl;
 		return;
 	}
-	
+
 	std::time_t exitTime = std::time(NULL);
 	std::string exitTimeString = TimeUtils::time2String(exitTime, TIME_FORMAT);
 
@@ -132,7 +133,7 @@ bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, in
 	if (str.fail() || number < botLimit || number > topLimit)
 	{
 		str.clear();
-		str.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skips 
+		str.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skips
 		return false;
 	}
 	return true;
@@ -140,7 +141,7 @@ bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, in
 
 void WWExit::inputTollBoothNumber()
 {
-	bool isValid = true; 
+	bool isValid = true;
 	do
 	{
 		std::cout << "Unesite broj naplatne kucice: ";
