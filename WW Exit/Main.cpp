@@ -2,7 +2,7 @@
 #include "WWExit.h"
 #include "../common/Login.h"
 
-void main()
+int main()
 {
 	Login::tryLogin();
 

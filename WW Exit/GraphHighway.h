@@ -17,7 +17,7 @@ public:
 	double getToll(const int startNode, const int endNode, const std::string &category) const;
 	bool hasViolatedSpeedLimit(const int startNode, const int endNode, const double travelTime) const;
 #ifdef DEBUG_MODE
-	void GraphHighway::draw() const;
+	void draw() const;
 #endif
 private:
 	struct Edge

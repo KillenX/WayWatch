@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 GraphHighway::GraphHighway()
 {
@@ -14,7 +15,7 @@ GraphHighway::GraphHighway()
 	csvParser.open(FILE_GRAPH_DATA);
 
 	// skip first two lines
-	csvParser.goNextLine(2); 
+	csvParser.goNextLine(2);
 
 	while (!csvParser.reachedEOF())
 	{

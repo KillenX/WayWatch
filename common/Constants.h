@@ -23,3 +23,5 @@ static const std::string FILE_DATABASE = DIR_DATA + "database.txt";
 
 // string formats
 static const std::string TIME_FORMAT = "%d-%m-%Y %H:%M:%S";
+
+static const std::string CURRENCY = "KM";
