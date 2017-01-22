@@ -1,6 +1,0 @@
-=========================================
-Ulazni cvor:          5
-Vrijeme ulaza:        22-01-2017 21:33:32
-Kategorija vozila:    A
-Registarske tablice:  1334
-=========================================
