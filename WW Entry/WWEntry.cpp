@@ -86,7 +86,7 @@ void WWEntry::generateEntryCard()
 
 	Console::clear();
 
-	std::cout << "Uspjesno generisan racun\n";
+	std::cout << "Uspjesno generisana potvrda\n";
 
 }
 
