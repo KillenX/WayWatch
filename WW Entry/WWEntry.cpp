@@ -156,7 +156,7 @@ unsigned int WWEntry::inputEntryNode()
     do
     {
 
-        std::cout << "Ulazni cvor: ";
+        std::cout << "Unesite broj naplatne kucice: ";
         std::cin >> node;
 
         validNode = Validation::isValidNode(node);
