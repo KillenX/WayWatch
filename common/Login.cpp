@@ -27,10 +27,7 @@ namespace Login
 
             printOptions();
             std::cout << "Izaberite opciju: ";
-
             std::cin >> selection;
-            std::cin.clear();
-            std::cin.ignore();
 
             Console::clear();
 

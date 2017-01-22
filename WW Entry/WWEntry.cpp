@@ -164,7 +164,7 @@ unsigned int WWEntry::inputEntryNode()
         Console::clear();
 
         if(std::cin.fail() || !validNode)
-            std::cout << "Nepostojeci ulazni cvor\n";
+            std::cout << "Nepostojeca naplatna kucica\n";
 
     }
     while(!validNode);
