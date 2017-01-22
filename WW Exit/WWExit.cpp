@@ -109,7 +109,7 @@ void WWExit::tollPayment()
 	if (choice == 1)
 	{
 		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
-		std::ofstream file(fileName, std::fstream::app);
+		std::ofstream file(fileName, std::ofstream::app);
 		receipt.printReceipt(file);
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;
