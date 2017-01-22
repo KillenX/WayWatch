@@ -23,30 +23,35 @@ WWExit::WWExit() : programExit(false), graphHighway()
 void WWExit::run()
 {
 
-    Login::tryLogin();
-    Console::clear();
+    while(logUI.show())
+    {
 
-	tollBoothAmount = graphHighway.getNumNodes();
+        tollBoothAmount = graphHighway.getNumNodes();
 
-	inputTollBoothNumber();
+        inputTollBoothNumber();
 
-	Console::clear();
+        Console::clear();
 
-	while (!programExit)
-	{
-		printOptions();
+        while (!programExit)
+        {
 
-		int selection;
-		std::cout << "Izaberite opciju: ";
-		std::cin >> selection;
-		Console::clear();
+            printOptions();
+            int selection;
+            std::cout << "Izaberite opciju: ";
+            std::cin >> selection;
+            Console::clear();
 
-		if (validateSelection(std::cin, 1, options.size(), selection))
-			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
-		else
-			std::cout << "Greska. Ta opcija ne postoji." << std::endl;
+            if (validateSelection(std::cin, 1, options.size(), selection))
+                options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
 
-	}
+            else
+                std::cout << "Greska. Ta opcija ne postoji." << std::endl;
+
+        }
+
+    }
+
+
 }
 
 void WWExit::printOptions() const
@@ -60,7 +65,7 @@ void WWExit::initOptions()
 	options =
 	{
 		{"Naplata putarine", std::bind(&WWExit::tollPayment, this) },
-		{"Izlaz", std::bind(&WWExit::exit, this)},
+		{"Odjava", std::bind(&WWExit::exit, this)},
 	};
 }
 
