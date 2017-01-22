@@ -1,12 +1,26 @@
 #include <iostream>
+#include <exception>
 #include "WWExit.h"
-#include "../common/Login.h"
+
+
 
 int main()
 {
-	Login::tryLogin();
 
-	WWExit app;
 
-	app.run();
+    try
+    {
+
+        WWExit app;
+        app.run();
+
+    }
+    catch(const std::exception &ex)
+    {
+
+        std::cout << "\nFatal error: " << ex.what();
+
+    }
+
+
 }

@@ -5,11 +5,12 @@
 #include "../common/EntryCard.h"
 #include "../common/TimeUtils.h"
 #include "../common/Constants.h"
+#include "../common/Login.h"
+#include "../common/Console.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
-#include "../common/Console.h"
 #include <limits>
 
 static const int PENALTY = 100;
@@ -21,9 +22,15 @@ WWExit::WWExit() : programExit(false), graphHighway()
 
 void WWExit::run()
 {
+
+    Login::tryLogin();
+    Console::clear();
+
 	tollBoothAmount = graphHighway.getNumNodes();
 
 	inputTollBoothNumber();
+
+	Console::clear();
 
 	while (!programExit)
 	{
@@ -38,6 +45,7 @@ void WWExit::run()
 			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
 		else
 			std::cout << "Greska. Ta opcija ne postoji." << std::endl;
+
 	}
 }
 
