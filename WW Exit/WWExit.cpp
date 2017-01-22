@@ -156,15 +156,18 @@ void WWExit::inputTollBoothNumber()
 	bool isValid = true;
 	do
 	{
+		if (isValid == false) 
+		{ 
+			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl; 
+		}
+
 		std::cout << "Unesite broj naplatne kucice: ";
 		std::cin >> tollBoothNumber;
 
-		if (validateSelection(std::cin, 1, tollBoothAmount, tollBoothNumber) == false)
-{
-			isValid = false;
-			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl;
-		}
+		if (validateSelection(std::cin, 1, tollBoothAmount, tollBoothNumber) == false) { isValid = false; }
+
 		else { isValid = true; }
+
 		Console::clear();
 	} while (isValid == false);
 }
