@@ -17,7 +17,7 @@ void Ticket::printTicket(std::ostream &str)
 {
 	printTicketHeader(str);
 
-	str << std::setw(24) << std::left << "Datum i vrijeme:" << dateTime << std::endl;
+	str << std::setw(24) << std::left << "Vrijeme:" << dateTime << std::endl;
 	str << std::setw(24) << std::left << "Registarske tablice:" << licensePlate << std::endl;
 	str << std::setw(24) << std::left << "Cijena:" << price << " " << CURRENCY << std::endl;
 
