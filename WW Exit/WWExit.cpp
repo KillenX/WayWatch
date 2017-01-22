@@ -23,12 +23,11 @@ WWExit::WWExit() : programExit(false), graphHighway()
 void WWExit::run()
 {
 
+	tollBoothAmount = graphHighway.getNumNodes();
+	inputTollBoothNumber();
+
     while(logUI.show())
     {
-
-        tollBoothAmount = graphHighway.getNumNodes();
-
-        inputTollBoothNumber();
 
         Console::clear();
 
