@@ -13,7 +13,7 @@ namespace Console
 
     void clear()
     {
-		
+
         #if defined(__linux__)
 
         std::cout << "\033[2J\033[1;1H"; // Magic
@@ -30,8 +30,16 @@ namespace Console
 
         FillConsoleOutputCharacter(consoleHandle,' ',bufferSize,topLeft,&written);
         SetConsoleCursorPosition(consoleHandle,topLeft);
-		
+
         #endif
+    }
+
+    void resetStdin()
+    {
+
+        std::cin.clear(); //Recover if text is entered
+        std::cin.ignore(); //Get rid of newline
+
     }
 
 }
