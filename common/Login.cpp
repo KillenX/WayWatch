@@ -81,14 +81,7 @@ namespace Login
 		std::cout << "Uspjesno logovanje na sistem." << std::endl << std::endl;
 	}
 
-	//Returns false if user wants to exit, true login successful
-	/*bool loginPrompt()
-	{
 
-
-
-
-	}*/
 
 	LoginUI::LoginUI():exit(false){}
 
