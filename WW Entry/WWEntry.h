@@ -4,6 +4,7 @@
 #include <utility> // std::pair
 #include <string>
 #include <functional>
+#include "../common/Login.h"
 
 
 class WWEntry
@@ -23,7 +24,7 @@ private:
 
 	void initOptions();
     void generateEntryCard();
-    void exit();
+    void logoutExit();
     void printOptions();
     bool validateSelection(std::istream &stream,int selection);
 
@@ -34,6 +35,8 @@ private:
     //Pair consisting of option string (eg. "Exit Program"), second is handler for the option
     using Option = std::pair <std::string,OptCallable>;
     std::vector <Option> options;
-    bool programExit;
+    bool logout;
+    Login::LoginUI logUI;
+
 
 };

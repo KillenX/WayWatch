@@ -10,7 +10,7 @@
 #include <cstddef>
 #include <ctime>
 
-WWEntry::WWEntry():programExit(false)
+WWEntry::WWEntry():logout(false)
 {
 
     initOptions();
@@ -21,40 +21,39 @@ WWEntry::WWEntry():programExit(false)
 void WWEntry::run()
 {
 
-	Login::tryLogin();
-
-    Console::clear();
-
-    while (!programExit)
+	while(logUI.show())
     {
 
-        int selection;
+        while (!logout)
+        {
 
-        printOptions();
-        std::cout << "\n";
+            int selection;
+            printOptions();
 
-        bool validSelection;
+            bool validSelection;
 
-        do
-		{
             std::cout << "Izaberi opciju: ";
             std::cin >> selection;
 
             validSelection = validateSelection(std::cin,selection);
             std::cin.clear();   // Recover if text is entered
             std::cin.ignore();  // Get rid of newline
+            Console::clear();
 
             if(!validSelection)
                 std::cout << "Greska!, opcija ne postoji\n";
-        }
-        while(!validSelection);
 
-        Console::clear();
-        options[selection - 1].second();
-        Console::clear();
+            else
+            {
+
+                options[selection - 1].second();
+                Console::clear();
+
+            }
+
+        }
 
     }
-
 }
 
 void WWEntry::initOptions()
@@ -64,7 +63,7 @@ void WWEntry::initOptions()
     {
 
         {"Izdavanje nove potvrde",std::bind(&WWEntry::generateEntryCard,this)},
-        {"Izlaz",std::bind(&WWEntry::exit,this)}
+        {"Odjava",std::bind(&WWEntry::logoutExit,this)}
 
 	};
 
@@ -87,13 +86,12 @@ void WWEntry::generateEntryCard()
 
 	confirmation.writeToFile();
 
-
 }
 
-void WWEntry::exit()
+void WWEntry::logoutExit()
 {
 
-    programExit = true;
+    logout = true;
 
 }
 
@@ -163,7 +161,6 @@ unsigned int WWEntry::inputEntryNode()
 
         if(!validNode)
             std::cout << "Nepostojeci ulazni cvor";
-
 
     }
     while(!validNode);
