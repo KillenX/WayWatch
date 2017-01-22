@@ -79,7 +79,10 @@ void WWExit::tollPayment()
 
 	EntryCard confirmation;
 
-	if (confirmation.readEntryCard(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD) == false) // if Entry Card hasn't been found
+	if (confirmation.readEntryCard(DIR_ENTRY_CARDS + 
+								   PREFIX_ENTRY_CARD + 
+								   licensePlate + 
+								   EXT_ENTRY_CARD) == false) // if Entry Card hasn't been found
 	{
 		std::cout << "Greska! Potvrda nije pronadjena." << std::endl;
 		return;
@@ -90,15 +93,22 @@ void WWExit::tollPayment()
 
 	// calculate toll and do speed control
 
-	double toll = graphHighway.getToll(confirmation.getEntryTollbooth(), tollBoothNumber, confirmation.getVehicleCategory());
+	double toll = graphHighway.getToll(confirmation.getEntryTollbooth(), 
+										tollBoothNumber, 
+										confirmation.getVehicleCategory());
 
-	double travelTime = difftime(exitTime, TimeUtils::string2Time(confirmation.getDateTime(), TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
+	double travelTime = difftime(exitTime, 
+								TimeUtils::string2Time(confirmation.getDateTime(), 
+								TIME_FORMAT)) / 60; // divide seconds by 60 to get in minutes
 
-	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), tollBoothNumber, travelTime);
+	bool hasViolated = graphHighway.hasViolatedSpeedLimit(confirmation.getEntryTollbooth(), 
+														  tollBoothNumber, 
+														  travelTime);
 
-	Receipt receipt(confirmation.getDateTime(), confirmation.getEntryTollbooth(),
-		exitTimeString, tollBoothNumber,
-		confirmation.getVehicleCategory(), toll, hasViolated);
+	Receipt receipt(confirmation.getDateTime(), 
+					confirmation.getEntryTollbooth(),
+					exitTimeString, tollBoothNumber,
+					confirmation.getVehicleCategory(), toll, hasViolated);
 
 	int choice;
 	int count = 0;
@@ -106,8 +116,16 @@ void WWExit::tollPayment()
 	do
 	{
 		receipt.printReceipt(std::cout);
-		if (count == 0) { std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl; ++count; } //"Racun je uspjesno generisan" prints only the first time
-		if (isValid == false) { std::cout << "Greska. Ta opcija ne postoji." << std::endl << std::endl; }
+
+		if (count == 0)  //prints "Racun je uspjesno generisan." only the first time
+		{ 
+			std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl; ++count; 
+		} 
+
+		if (isValid == false) 
+		{ 
+			std::cout << "Greska. Ta opcija ne postoji." << std::endl << std::endl;
+		}
 
 		std::cout << "1 - Izdaj racun." << std::endl
 				  << "2 - Obrisi." << std::endl
@@ -119,13 +137,20 @@ void WWExit::tollPayment()
 		{
 			isValid = false;
 		}
+
 		else { isValid = true; }
+
 		Console::clear();
+
 	} while (isValid == false);
 
 	if (choice == 1)
 	{
-		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
+		std::string fileName = std::string(DIR_RECEIPTS + 
+										  PREFIX_RECEIPT + 
+										  confirmation.getLicensePlate() + 
+										  EXT_RECEIPT);
+
 		std::ofstream file(fileName, std::ofstream::app);
 		receipt.printReceipt(file);
 		file.close();
@@ -135,7 +160,10 @@ void WWExit::tollPayment()
 		{
 			Ticket t(exitTimeString, licensePlate, PENALTY);
 
-			std::string fileName = std::string(DIR_TICKETS + PREFIX_TICKET + licensePlate + EXT_TICKET);
+			std::string fileName = std::string(DIR_TICKETS + 
+											   PREFIX_TICKET + 
+											   licensePlate + 
+											   EXT_TICKET);
 
 			std::ofstream file(fileName, std::fstream::app);
 
