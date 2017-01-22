@@ -15,7 +15,7 @@
 
 static const int PENALTY = 100;
 
-WWExit::WWExit() : programExit(false), graphHighway()
+WWExit::WWExit() : logout(false), graphHighway()
 {
 	initOptions();
 }
@@ -30,8 +30,9 @@ void WWExit::run()
     {
 
         Console::clear();
+        logout = false;
 
-        while (!programExit)
+        while (!logout)
         {
 
             printOptions();
@@ -44,7 +45,7 @@ void WWExit::run()
                 options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
 
             else
-                std::cout << "Greska. Ta opcija ne postoji." << std::endl;
+                std::cout << "Greska! Ta opcija ne postoji." << std::endl;
 
         }
 
@@ -64,7 +65,7 @@ void WWExit::initOptions()
 	options =
 	{
 		{"Naplata putarine", std::bind(&WWExit::tollPayment, this) },
-		{"Odjava", std::bind(&WWExit::exit, this)},
+		{"Odjava", std::bind(&WWExit::logoutExit, this)},
 	};
 }
 
@@ -80,7 +81,7 @@ void WWExit::tollPayment()
 
 	if (confirmation.readEntryCard(DIR_ENTRY_CARDS + PREFIX_ENTRY_CARD + licensePlate + EXT_ENTRY_CARD) == false) // if Entry Card hasn't been found
 	{
-		std::cout << "Greska. Potvrda nije pronadjena." << std::endl;
+		std::cout << "Greska! Potvrda nije pronadjena." << std::endl;
 		return;
 	}
 
@@ -135,9 +136,9 @@ void WWExit::tollPayment()
 
 }
 
-void WWExit::exit()
+void WWExit::logoutExit()
 {
-	programExit = true;
+	logout = true;
 }
 
 bool WWExit::validateSelection(std::istream& str, int botLimit, int topLimit, int number)
@@ -156,9 +157,9 @@ void WWExit::inputTollBoothNumber()
 	bool isValid = true;
 	do
 	{
-		if (isValid == false) 
-		{ 
-			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl; 
+		if (isValid == false)
+		{
+			std::cout << "Greska. Ta naplatna kucica ne postoji." << std::endl;
 		}
 
 		std::cout << "Unesite broj naplatne kucice: ";

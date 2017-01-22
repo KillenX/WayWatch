@@ -13,7 +13,7 @@ private:
 	using Function = std::function <void()>;
 	using Option = std::pair <std::string, Function>;
 
-	bool programExit;
+	bool logout;
 	int tollBoothNumber; // id. number of node the employee is located at
 	int tollBoothAmount; // amount of nodes on highway graph
 	std::vector <Option> options;
@@ -27,7 +27,7 @@ private:
 	void printOptions() const;
 	void initOptions();
 	void tollPayment();
-	void exit();
+	void logoutExit();
 public:
 	WWExit();
 	WWExit(const WWExit &) = delete;

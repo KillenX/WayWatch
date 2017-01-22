@@ -21,8 +21,13 @@ WWEntry::WWEntry():logout(false)
 void WWEntry::run()
 {
 
+    entryNode = inputEntryNode();
+    Console::clear();
+
 	while(logUI.show())
     {
+
+        logout = false;
 
         while (!logout)
         {
@@ -36,20 +41,14 @@ void WWEntry::run()
             std::cin >> selection;
 
             validSelection = validateSelection(std::cin,selection);
-            std::cin.clear();   // Recover if text is entered
-            std::cin.ignore();  // Get rid of newline
+            Console::resetStdin();
             Console::clear();
 
             if(!validSelection)
-                std::cout << "Greska!, opcija ne postoji\n";
+                std::cout << "Greska! Ta opcija ne postoji\n";
 
             else
-            {
-
                 options[selection - 1].second();
-                Console::clear();
-
-            }
 
         }
 
@@ -77,7 +76,6 @@ void WWEntry::generateEntryCard()
     std::cin >> licensePlate;
 
     std::string vehicleCategory = inputCategory();
-    unsigned int entryNode = inputEntryNode();
 
 	std::time_t time = std::time(NULL);
 	std::string dateTime = TimeUtils::time2String(time, TIME_FORMAT);
@@ -85,6 +83,10 @@ void WWEntry::generateEntryCard()
 	EntryCard confirmation(licensePlate, vehicleCategory, dateTime, entryNode);
 
 	confirmation.writeToFile();
+
+	Console::clear();
+
+	std::cout << "Uspjesno generisan racun\n";
 
 }
 
@@ -131,10 +133,10 @@ std::string WWEntry::inputCategory()
 		std::cin >> category;
 
 		validCategory = Validation::isValidCategory(category);
+		Console::clear();
 
 		if(!validCategory)
             std::cout << "Nepostojeca kategorija\n";
-
 
 	}
 	while (!validCategory);
@@ -148,23 +150,26 @@ std::string WWEntry::inputCategory()
 unsigned int WWEntry::inputEntryNode()
 {
 
-    unsigned int entryNode;
+    unsigned int node;
     bool validNode;
 
     do
     {
 
         std::cout << "Ulazni cvor: ";
-        std::cin >> entryNode;
+        std::cin >> node;
 
-        validNode = Validation::isValidNode(entryNode);
+        validNode = Validation::isValidNode(node);
+        Console::resetStdin();
+        Console::clear();
 
-        if(!validNode)
-            std::cout << "Nepostojeci ulazni cvor";
+        if(std::cin.fail() || !validNode)
+            std::cout << "Nepostojeci ulazni cvor\n";
 
     }
     while(!validNode);
 
-    return entryNode;
+    return node;
 
 }
+

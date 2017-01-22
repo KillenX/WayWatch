@@ -21,14 +21,12 @@ public:
 
 private:
 
-
 	void initOptions();
     void generateEntryCard();
     void logoutExit();
     void printOptions();
     bool validateSelection(std::istream &stream,int selection);
 
-    //void printHelp(); Implement?
     std::string inputCategory();
     unsigned int inputEntryNode();
     using OptCallable = std::function <void()>;
@@ -37,6 +35,6 @@ private:
     std::vector <Option> options;
     bool logout;
     Login::LoginUI logUI;
-
+    unsigned int entryNode;
 
 };
