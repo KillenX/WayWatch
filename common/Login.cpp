@@ -12,76 +12,8 @@
 #endif
 
 
-namespace
-{
-    void setEcho(bool enableEcho)
-    {
-        #if defined(__linux__)
-        termios tty;
-        tcgetattr(STDIN_FILENO,&tty);
-        if(enableEcho)
-            tty.c_lflag |= ECHO;
-        else
-            tty.c_lflag &= ~ECHO;
-        tcsetattr(STDIN_FILENO,TCSANOW,&tty);
-
-        #elif defined(_WIN32)
-		HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
-		DWORD mode;
-		GetConsoleMode(hStdin, &mode);
-		if (!enableEcho)
-			mode &= ~ENABLE_ECHO_INPUT;
-		else
-			mode |= ENABLE_ECHO_INPUT;
-		SetConsoleMode(hStdin, mode);
-        #endif
-    }
-
-    std::pair <std::string, std::string> promptUser()
-    {
-        std::string username, password;
-
-        std::cout << "Username: ";
-        std::getline(std::cin, username);
-
-        std::cout << "Password: ";
-        setEcho(false);
-
-        std::getline(std::cin, password);
-        setEcho(true);
-
-		std::cout << std::endl;
-
-		return std::make_pair(username, password);
-    }
-
-    //UserManager userManager;
-
-}
-
-
 namespace Login
 {
-
-	void tryLogin()
-	{
-
-		UserManager userManager;
-		bool loggedIn;
-
-		do
-		{
-			auto credentials = promptUser();
-			loggedIn = userManager.login(credentials.first, credentials.second);
-
-			if (!loggedIn)
-				std::cout << "Netacno korisnicko ime/sifra" << std::endl;
-		} while (!loggedIn);
-
-		std::cout << "Uspjesno logovanje na sistem." << std::endl << std::endl;
-	}
-
-
 
 	LoginUI::LoginUI():exit(false){}
 
@@ -213,10 +145,6 @@ namespace Login
 	    exit = userManager.login(credentials.first,credentials.second);
 
 	}
-
-
-
-
 
 }
 

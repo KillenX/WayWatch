@@ -8,8 +8,6 @@
 namespace Login
 {
 
-	void tryLogin();
-
 	class LoginUI
 	{
 
