@@ -109,8 +109,9 @@ void WWExit::tollPayment()
 		if (count == 0) { std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl; ++count; } //"Racun je uspjesno generisan" prints only the first time
 		if (isValid == false) { std::cout << "Greska. Ta opcija ne postoji." << std::endl << std::endl; }
 
-			std::cout << "1 - Izdaj racun." << std::endl
-				      << "2 - Obrisi." << std::endl;
+		std::cout << "1 - Izdaj racun." << std::endl
+				  << "2 - Obrisi." << std::endl
+				  << "Izaberite opciju: ";
 
 		std::cin >> choice;
 
