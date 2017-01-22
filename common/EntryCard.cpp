@@ -24,19 +24,19 @@ bool EntryCard::readEntryCard(const std::string fileName)
 	std::string time;
 
 	file.ignore(100, '\n'); //skips header line "====..."
-	file.ignore(100, ':');  //skips "Entry node:"
+	file.ignore(100, ':');  //skips "Ulazni cvor:"
 
 	file >> entryTollbooth;
 
-	file.ignore(100, ':'); //skips "Date and Time:"
+	file.ignore(100, ':'); //skips "Vrijeme ulaza:"
 
 	file >> date;
 	file >> time;
 
-	file.ignore(100, ' '); //Skips "Category:"
+	file.ignore(100, ':'); //skips "Kategorija vozila:"
 	file >> vehicleCategory;
 
-	file.ignore(100, ':'); //Skips "License plate:"
+	file.ignore(100, ':'); //skips "Registarske tablice:"
 	file >> licensePlate;
 
 	dateTime = date + " " + time;
@@ -47,16 +47,19 @@ bool EntryCard::readEntryCard(const std::string fileName)
 
 void EntryCard::printEntryCardHeader(std::ostream &str)
 {
-	str << "========================================" << std::endl;
+	str << "=========================================" << std::endl;
 }
 
 void EntryCard::printEntryCard(std::ostream &str)
 {
-	str << "Entry node: " << entryTollbooth << std::endl
-		<< "Date: " << dateTime << std::endl
-		<< "Category: " << vehicleCategory << std::endl
-		<< "License plate: " << licensePlate << std::endl
-		<< "========================================" << std::endl;
+	printEntryCardHeader(str);
+
+	str << std::setw(22) << std::left << "Ulazni cvor:" << entryTollbooth << std::endl
+		<< std::setw(22) << std::left << "Vrijeme ulaza:" << dateTime << std::endl
+		<< std::setw(22) << std::left << "Kategorija vozila:" << vehicleCategory << std::endl
+		<< std::setw(22) << std::left << "Registarske tablice:" << licensePlate << std::endl;
+	
+	printEntryCardHeader(str);
 }
 
 void EntryCard::writeToFile()
@@ -69,7 +72,6 @@ void EntryCard::writeToFile()
     if(!file.is_open())
         throw std::runtime_error("Could not open file: " + filename);
 
-    printEntryCardHeader(file);
     printEntryCard(file);
 
 }

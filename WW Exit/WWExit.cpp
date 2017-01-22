@@ -5,11 +5,12 @@
 #include "../common/EntryCard.h"
 #include "../common/TimeUtils.h"
 #include "../common/Constants.h"
+#include "../common/Login.h"
+#include "../common/Console.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
-#include "../common/Console.h"
 #include <limits>
 
 static const int PENALTY = 100;
@@ -21,24 +22,36 @@ WWExit::WWExit() : programExit(false), graphHighway()
 
 void WWExit::run()
 {
-	tollBoothAmount = graphHighway.getNumNodes();
 
-	inputTollBoothNumber();
+    while(logUI.show())
+    {
 
-	while (!programExit)
-	{
-		printOptions();
+        tollBoothAmount = graphHighway.getNumNodes();
 
-		int selection;
-		std::cout << "Izaberite opciju: ";
-		std::cin >> selection;
-		Console::clear();
+        inputTollBoothNumber();
 
-		if (validateSelection(std::cin, 1, options.size(), selection))
-			options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
-		else
-			std::cout << "Greska. Ta opcija ne postoji." << std::endl;
-	}
+        Console::clear();
+
+        while (!programExit)
+        {
+
+            printOptions();
+            int selection;
+            std::cout << "Izaberite opciju: ";
+            std::cin >> selection;
+            Console::clear();
+
+            if (validateSelection(std::cin, 1, options.size(), selection))
+                options[selection - 1].second(); // menu options are [1...n], array is [0...n-1]
+
+            else
+                std::cout << "Greska. Ta opcija ne postoji." << std::endl;
+
+        }
+
+    }
+
+
 }
 
 void WWExit::printOptions() const
@@ -52,7 +65,7 @@ void WWExit::initOptions()
 	options =
 	{
 		{"Naplata putarine", std::bind(&WWExit::tollPayment, this) },
-		{"Izlaz", std::bind(&WWExit::exit, this)},
+		{"Odjava", std::bind(&WWExit::exit, this)},
 	};
 }
 
@@ -101,7 +114,7 @@ void WWExit::tollPayment()
 	if (choice == 1)
 	{
 		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
-		std::ofstream file(fileName, std::fstream::app);
+		std::ofstream file(fileName, std::ofstream::app);
 		receipt.printReceipt(file);
 		file.close();
 		std::cout << "Racun uspjesno izdat. " << std::endl;

@@ -5,6 +5,7 @@
 #include <utility>
 #include "GraphHighway.h"
 #include "Receipt.h"
+#include "../common/Login.h"
 
 class WWExit
 {
@@ -17,6 +18,8 @@ private:
 	int tollBoothAmount; // amount of nodes on highway graph
 	std::vector <Option> options;
 	GraphHighway graphHighway;
+	Login::LoginUI logUI;
+
 
 	bool validateSelection(std::istream &str, int botLimit, int topLimit, int number);
 	void inputTollBoothNumber();
