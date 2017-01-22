@@ -35,9 +35,10 @@ namespace Login
             Console::clear();
 
             bool validSelection = validateSelection(std::cin,selection);
+            Console::resetStdin();
 
             if(!validSelection)
-                std::cout << "Greska! opcija ne postoji\n";
+                std::cout << "Greska! Ta opcija ne postoji\n";
 
             else
             {
@@ -107,10 +108,10 @@ namespace Login
 
 	    std::string username, password;
 
-        std::cout << "Username: ";
+        std::cout << "Korisnicko ime: ";
         std::getline(std::cin, username);
 
-        std::cout << "Password: ";
+        std::cout << "Sifra: ";
         setEcho(false);
 
         std::getline(std::cin, password);
