@@ -100,17 +100,28 @@ void WWExit::tollPayment()
 		exitTimeString, tollBoothNumber,
 		confirmation.getVehicleCategory(), toll, hasViolated);
 
-	receipt.printReceipt(std::cout);
-
 	int choice;
-	std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl
-			  << "1 - Izdaj racun." << std::endl
-			  << "2 - Obrisi." << std::endl;
+	int count = 0;
+	bool isValid = true;
+	do
+	{
+		receipt.printReceipt(std::cout);
+		if (count == 0) { std::cout << "Racun je uspjesno generisan. " << std::endl << std::endl; ++count; } //"Racun je uspjesno generisan" prints only the first time
+		if (isValid == false) { std::cout << "Greska. Ta opcija ne postoji." << std::endl << std::endl; }
 
-	std::cin >> choice;
-	Console::clear();
+			std::cout << "1 - Izdaj racun." << std::endl
+				      << "2 - Obrisi." << std::endl;
 
-	// TODO: make option selection a loop until right choice is made
+		std::cin >> choice;
+
+		if (validateSelection(std::cin, 1, 2, choice) == false)
+		{
+			isValid = false;
+		}
+		else { isValid = true; }
+		Console::clear();
+	} while (isValid == false);
+
 	if (choice == 1)
 	{
 		std::string fileName = std::string(DIR_RECEIPTS + PREFIX_RECEIPT + confirmation.getLicensePlate() + EXT_RECEIPT);
@@ -172,4 +183,5 @@ void WWExit::inputTollBoothNumber()
 		Console::clear();
 	} while (isValid == false);
 }
+
 

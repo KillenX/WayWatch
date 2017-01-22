@@ -23,7 +23,6 @@ private:
 
 	bool validateSelection(std::istream &str, int botLimit, int topLimit, int number);
 	void inputTollBoothNumber();
-
 	void printOptions() const;
 	void initOptions();
 	void tollPayment();
